@@ -1,6 +1,6 @@
 # Variable Font experiments
 
-![Demo gif](./_doc/pic/RegularOxygen.mp4)
+![Demo gif](./_doc/pic/RegularOxygen.mov)
 
 Demo:
 
