@@ -14,14 +14,31 @@
   <div>
     <div>
 
-      <label for="css-var-input-font-text-medium">Min font size</label>
-      <input id="css-var-input-font-text-medium" type="number" value="72"></input>
-      <label for="css-var-input-font-text-large">Max font size</label>
-      <input id="css-var-input-font-text-large" type="number" value="96"></input>
-      <label for="css-var-input-row-height">Row height</label>
-      <input id="css-var-input-row-height" type="number" value="130"></input>
+      <div>
+        
+        <label for="css-var-input-font-text-medium">Min font size</label>
+        <input id="css-var-input-font-text-medium" type="number" value="72"></input>
+        <label for="css-var-input-font-text-large">Max font size</label>
+        <input id="css-var-input-font-text-large" type="number" value="96"></input>
+        <label for="css-var-input-row-height">Row height</label>
+        <input id="css-var-input-row-height" type="number" value="130"></input>
+      </div>
+      <div>
+        <label for="css-var-input-font-animation-duration">Duration</label>
+        <input id="css-var-input-font-animation-duration" type="number" value="4000"></input>
+        <label for="css-var-input-font-animation-delay">Delay</label>
+        <input id="css-var-input-font-animation-delay" type="number" value="400"></input>
+        
+      </div>
+      <div>
+        <label for="css-var-input-bg-color">BG color</label>
+        <input type="color" id="css-var-input-bg-color" value="#DCEDC8">
+        <label for="css-var-input-text-color">Text color</label>
+        <input type="color" id="css-var-input-text-color" value="#000000">
+        
+      </div>
     </div>
-    <div id="HideMeAfterInputRenderEvent">
+    <div>
       <div>
         <div class="center">
           <label for="input-text-textarea">Text</label>
@@ -32,8 +49,10 @@
           <input id="btn-run" type="button" value="Run">
       </div>
     </div>
-    <div class="Font-Kapsas" id="input-text-render" style="margin-top: 40px;" data-splitting>
-        Content will be rendered here
+    <div class="Font-Kapsas" id="input-to-output-text-render" style="margin-top: 40px;">
+        <div data-splitting>
+          Content will be rendered here
+        </div>
     </div>
   </div>
 
@@ -58,7 +77,7 @@
       <div class="fixed-height">man</div>
     </div>
 
-    <div class="Font-Kapsas" style="margin-top: 200px;" data-splitting>
+    <div id="kapsas-demo" class="Font-Kapsas" style="margin-top: 200px;" data-splitting>
       <div class="fixed-height">KAP</div>
       <div class="fixed-height">SAS</div>
     </div>
@@ -77,7 +96,35 @@
     InputEvents();
     RunRender();
     RowHeightEvent();
+    AnimationEvents();
+    ColorEvents();
+  }
 
+  function ColorEvents() {
+    const inputHandler = function(e, styleVariable) {
+      let root = document.documentElement;
+      console.log(e.target.value)
+      root.style.setProperty(styleVariable, e.target.value);
+    }
+    
+    let elementInputBgColor = document.querySelector("#css-var-input-bg-color");
+    let elementInputTextColor = document.querySelector("#css-var-input-text-color");
+ 
+    elementInputBgColor.addEventListener('change', (e) => { inputHandler(e, "--bg-color"); });
+    elementInputTextColor.addEventListener('change', (e) => { inputHandler(e, "--text-color"); });
+  }
+
+  function AnimationEvents() {
+    const inputHandler = function(e, styleVariable) {
+      let root = document.documentElement;
+      root.style.setProperty(styleVariable, e.target.value + "ms");
+    }
+    
+    let elementInputMedium = document.querySelector("#css-var-input-font-animation-duration");
+    let elementInputLarge = document.querySelector("#css-var-input-font-animation-delay");
+
+    elementInputMedium.addEventListener('input', (e) => { inputHandler(e, "--animation-duration"); });
+    elementInputLarge.addEventListener('input', (e) => { inputHandler(e, "--animation-delay"); });
   }
 
   function FontSizeEvents() {
@@ -119,8 +166,8 @@
     rows.forEach(row => {
       outputAreaBuilder += `<div class='fixed-height'>${row}</div>`;
     });
-    let outputArea = document.querySelector("#input-text-render");
-    outputArea.innerHTML = outputAreaBuilder;
+    let outputArea = document.querySelector("#input-to-output-text-render");
+    outputArea.innerHTML = `<div data-splitting>${outputAreaBuilder}<\div>`;
   }
 
   function RunRender() {
@@ -128,8 +175,8 @@
     runBtn.addEventListener('click', (e) => {
       PutTextIntoRender()
       Splitting();
-      document.querySelector("#HideMeAfterInputRenderEvent").style.setProperty("display", "none")
     })
+    document.getElementById("kapsas-demo").style.fontFamily = "Impact,Charcoal,sans-serif";
   }
 
 </script>

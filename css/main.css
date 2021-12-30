@@ -1,7 +1,11 @@
 :root {
   --text-size-medium: 72px;
   --text-size-large: 96px;
-  --row-height: 130px
+  --row-height: 130px;
+  --animation-duration: 4000ms;
+  --animation-delay: 400ms;
+  --bg-color: #DCEDC8;        
+  --text-color: #000000;        
 }
 
 .center {
@@ -23,12 +27,7 @@
 */
 @font-face {
   font-family: "Kapsas";
-  src: url("./../font/Kapsas0.08VF.ttf");
-}
-
-@font-face {
-  font-family: "Discoduck";
-  src: url("./../font/discoduckv2.ttf");
+  src: url("./../font/Kapsas0.09VF.ttf");
 }
 
 @font-face {
@@ -60,12 +59,13 @@
 body {
   font-family: "IBM Plex Sans";
   text-align: center;
-  background-color: #DCEDC8;
+  background-color: var(--bg-color);
+  color: var(--text-color);
 }
 
 .char {  /* This class name is added by splitting.js */
-  --delay: calc((var(--char-index) + 1) * 400ms);
-  animation: breathe 4000ms infinite both;
+  --delay: calc((var(--char-index) + 1) * var(--animation-delay));
+  animation: breathe var(--animation-duration) infinite both;
   animation-delay: var(--delay);
 }
 
