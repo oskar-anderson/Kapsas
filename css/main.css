@@ -52,12 +52,6 @@ body {
   background-color: #DCEDC8;
 }
 
-.animateBreathing {
-  font-weight: 100;
-  line-height: 10vw;
-  font-variation-settings: 'wght' 100, 'wdth' 85;
-}
-
 .char {  /* This class name is added by splitting.js */
   --delay: calc((var(--char-index) + 1) * 400ms);
   animation: breathe 4000ms infinite both;
