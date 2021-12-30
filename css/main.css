@@ -1,9 +1,20 @@
-.big-text {
-  font-size: 130px;
+:root {
+  --text-size-medium: 72px;
+  --text-size-large: 96px;
+  --row-height: 130px
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .fixed-height {
-  height: 1em; /* set height equal to 1 font size, needed to disable rows from moving during animation  */
+  height: var(--row-height);
+  font-size: var(--row-height);  
+  /* Setting the font-size prevents the text from moving vertically during animation, 
+  has no actual effect on font-size. Font size is dictated by animation. */
 }
 
 /* 
@@ -35,7 +46,7 @@
 }
 
 .Font-Kapsas {
-  font-family: "Kapsas", "Discoduck", "IBM Plex Sans"; /* Set primary font and fallbacks */
+  font-family: "Kapsas", "IBM Plex Sans"; /* Set primary font and fallbacks */
 }
 
 .Font-Blacc {
@@ -63,15 +74,15 @@ body {
 @keyframes breathe {
   0% {
     font-variation-settings: 'wght' 100, 'wdth' 85;
-    font-size: 10vw;
+    font-size: var(--text-size-medium);
   }
   60% {
     font-variation-settings: 'wght' 700, 'wdth' 100;
-    font-size: 11vw;
+    font-size: var(--text-size-large);
   }
   
   100% {
     font-variation-settings: 'wght' 100, 'wdth' 85;
-    font-size: 10vw;
+    font-size: var(--text-size-medium);
   }
 }

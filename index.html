@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="./css/main.css" rel="stylesheet" >
   
   <!-- https://splitting.js.org/ -->
@@ -12,26 +13,52 @@
 <body>
   <div>
     <div>
-      <div class="big-text fixed-height">
+
+      <label for="css-var-input-font-text-medium">Min font size</label>
+      <input id="css-var-input-font-text-medium" type="number" value="72"></input>
+      <label for="css-var-input-font-text-large">Max font size</label>
+      <input id="css-var-input-font-text-large" type="number" value="96"></input>
+      <label for="css-var-input-row-height">Row height</label>
+      <input id="css-var-input-row-height" type="number" value="130"></input>
+    </div>
+    <div id="HideMeAfterInputRenderEvent">
+      <div>
+        <div class="center">
+          <label for="input-text-textarea">Text</label>
+          <textarea name="input-text" id="input-text-textarea"></textarea>
+        </div>
+      </div>
+      <div>
+          <input id="btn-run" type="button" value="Run">
+      </div>
+    </div>
+    <div class="Font-Kapsas" id="input-text-render" style="margin-top: 40px;" data-splitting>
+        Content will be rendered here
+    </div>
+  </div>
+
+  <div>
+    <div style="margin-top: 200px;">
+      <div class="fixed-height">
         <div class="" data-splitting>regular</div>
       </div>
       
-      <div class="big-text fixed-height">
+      <div class="fixed-height">
         <div class="" data-splitting><span style="display: none;">x</span>oxygen</div>
       </div>
       
-      <div class="big-text">
+      <div class="fixed-height">
         <div class="" data-splitting><span style="display: none;">xx</span>surpass</div>
       </div>
     </div>
     
-    <div class="big-text Font-BlaccShadow" style="margin-top: 200px;" data-splitting>
+    <div class="Font-BlaccShadow" style="margin-top: 200px;" data-splitting>
       <div class="fixed-height">Cra</div>
       <div class="fixed-height">fts</div>
       <div class="fixed-height">man</div>
     </div>
 
-    <div class="big-text Font-Kapsas" style="margin-top: 200px;" data-splitting>
+    <div class="Font-Kapsas" style="margin-top: 200px;" data-splitting>
       <div class="fixed-height">KAP</div>
       <div class="fixed-height">SAS</div>
     </div>
@@ -41,7 +68,68 @@
 </body>
 </html>
 
-<script>
-  Splitting();
+<script type="module">
+
+  main();
+
+  function main() {
+    FontSizeEvents();
+    InputEvents();
+    RunRender();
+    RowHeightEvent();
+
+  }
+
+  function FontSizeEvents() {
+    const inputHandler = function(e, styleVariable) {
+      let root = document.documentElement;
+      root.style.setProperty(styleVariable, e.target.value + "px");
+    }
+    
+    let elementInputMedium = document.querySelector("#css-var-input-font-text-medium");
+    let elementInputLarge = document.querySelector("#css-var-input-font-text-large");
+    
+    elementInputMedium.addEventListener('input', (e) => { inputHandler(e, "--text-size-medium"); });
+    elementInputLarge.addEventListener('input', (e) => { inputHandler(e, "--text-size-large"); });
+
+  }
+
+  function RowHeightEvent() {
+    let elementRowHeight = document.querySelector("#css-var-input-row-height");
+    
+    elementRowHeight.addEventListener('input', (e) => { 
+      let root = document.documentElement;
+      root.style.setProperty("--row-height", e.target.value + "px");
+    });
+  }
+  
+  function InputEvents() {
+    let elementInputText = document.querySelector("#input-text-textarea");
+    elementInputText.value = 'regular\noxygen\nsurpass';
+
+    elementInputText.addEventListener('change', () => { 
+      PutTextIntoRender();
+    })
+  }
+
+  function PutTextIntoRender() {
+    let elementInputText = document.querySelector("#input-text-textarea");
+    let rows = elementInputText.value.split(/\r?\n/);
+    let outputAreaBuilder = "";
+    rows.forEach(row => {
+      outputAreaBuilder += `<div class='fixed-height'>${row}</div>`;
+    });
+    let outputArea = document.querySelector("#input-text-render");
+    outputArea.innerHTML = outputAreaBuilder;
+  }
+
+  function RunRender() {
+    let runBtn = document.querySelector("#btn-run");
+    runBtn.addEventListener('click', (e) => {
+      PutTextIntoRender()
+      Splitting();
+      document.querySelector("#HideMeAfterInputRenderEvent").style.setProperty("display", "none")
+    })
+  }
 
 </script>
