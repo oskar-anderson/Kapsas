@@ -1,52 +1,83 @@
+.big-text {
+  font-size: 130px;
+}
+
+.fixed-height {
+  height: 1em; /* set height equal to 1 font size, needed to disable rows from moving during animation  */
+}
 
 /* 
   Weight axis: 100 – 700
   Width axis: 85 – 100
 */
 @font-face {
-    font-family: "IBM Plex Sans Roman";
-    src: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/85648/IBMPlexSansVar-Roman.ttf");
-  }
-  
-  * {
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: "IBM Plex Sans Roman", Times;
-    text-align: center;
-    min-height: 100vh;
-    background-color: #DCEDC8;
-  }
-  
-  h1 {
-    font-weight: 100;
-    font-size: 10vw;
-    line-height: 10vw;
-    font-variation-settings: 'wght' 100, 'wdth' 85;
-  }
-  
-  h1 .char {
-    --delay: calc((var(--char-index) + 1) * 400ms);
-    animation: breathe 4000ms infinite both;
-    animation-delay: var(--delay);
-  }
-  
+  font-family: "Kapsas";
+  src: url("./../font/Kapsas0.08VF.ttf");
+}
 
-  
-  @keyframes breathe {
-    0% {
-      font-variation-settings: 'wght' 100, 'wdth' 85;
-      font-size: 10vw;
-    }
-    60% {
-      font-variation-settings: 'wght' 700, 'wdth' 100;
-      font-size: 11vw;
-    }
-    
-    100% {
-      font-variation-settings: 'wght' 100, 'wdth' 85;
-      font-size: 10vw;
-    }
+@font-face {
+  font-family: "Discoduck";
+  src: url("./../font/discoduckv2.ttf");
+}
+
+@font-face {
+  font-family: "IBM Plex Sans";
+  src: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/85648/IBMPlexSansVar-Roman.ttf");
+}
+
+@font-face {
+  font-family: "BLACC";
+  src: url("./../font/BLACC___.TTF");
+}
+@font-face {
+  font-family: "BLACCS";
+  src: url("./../font/BLACCS__.TTF");
+}
+
+.Font-Kapsas {
+  font-family: "Kapsas", "Discoduck", "IBM Plex Sans"; /* Set primary font and fallbacks */
+}
+
+.Font-Blacc {
+  font-family: "BLACC";
+}
+
+.Font-BlaccShadow {
+  font-family: "BLACCS";
+}
+
+body {
+  font-family: "IBM Plex Sans";
+  text-align: center;
+  background-color: #DCEDC8;
+}
+
+.animateBreathing {
+  font-weight: 100;
+  line-height: 10vw;
+  font-variation-settings: 'wght' 100, 'wdth' 85;
+}
+
+.char {  /* This class name is added by splitting.js */
+  --delay: calc((var(--char-index) + 1) * 400ms);
+  animation: breathe 4000ms infinite both;
+  animation-delay: var(--delay);
+}
+
+
+
+@keyframes breathe {
+  0% {
+    font-variation-settings: 'wght' 100, 'wdth' 85;
+    font-size: 10vw;
+  }
+  60% {
+    font-variation-settings: 'wght' 700, 'wdth' 100;
+    font-size: 11vw;
   }
   
+  100% {
+    font-variation-settings: 'wght' 100, 'wdth' 85;
+    font-size: 10vw;
+  }
+}

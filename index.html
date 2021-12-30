@@ -1,19 +1,47 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <link href="./styles.css" rel="stylesheet" >
+  <head>
+  <link href="./css/main.css" rel="stylesheet" >
   
-  <link rel="stylesheet" href="https://unpkg.com/splitting/dist/splitting.css" />
-<script src="./splitting.js"></script>
-  <styles>
-</styles>
+  <!-- https://splitting.js.org/ -->
+  <link rel="stylesheet" href="./css/splitting.css" />
+  <script src="./js/splitting.js"></script>
+  <meta charset="utf-8"  />
+  <title>Kapsas</title>
 </head>
 <body>
-<h1 data-splitting>regular</h1>
-<h1 data-splitting>oxygen</h1>
+  <div>
+    <div>
+      <div class="big-text fixed-height">
+        <div class="animateBreathing" data-splitting>regular</div>
+      </div>
+      
+      <div class="big-text fixed-height">
+        <div class="animateBreathing" data-splitting><span style="display: none;">x</span>oxygen</div>
+      </div>
+      
+      <div class="big-text fixed-height animateBreathing" data-splitting>
+        <div class="animateBreathing" data-splitting><span style="display: none;">xx</span>surpass</div>
+      </div>
+    </div>
+    
+    <div class="big-text Font-BlaccShadow" style="margin-top: 200px;" data-splitting>
+      <div class="animateBreathing fixed-height">Cra</div>
+      <div class="animateBreathing fixed-height">fts</div>
+      <div class="animateBreathing fixed-height">man</div>
+    </div>
+
+    <div class="big-text Font-Kapsas" style="margin-top: 200px;" data-splitting>
+      <div class="animateBreathing fixed-height">KAP</div>
+      <div class="animateBreathing fixed-height">SAS</div>
+    </div>
+
+
+  </div>
 </body>
 </html>
 
 <script>
   Splitting();
+
 </script>
