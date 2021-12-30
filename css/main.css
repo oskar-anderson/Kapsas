@@ -8,6 +8,10 @@
   --text-color: #000000;        
 }
 
+.directChildrenInheritMarginTop > * {
+  margin-top: inherit;
+}
+
 .center {
   display: flex;
   justify-content: center;
@@ -16,15 +20,13 @@
 
 .fixed-height {
   height: var(--row-height);
-  font-size: var(--row-height);  
-  /* Setting the font-size prevents the text from moving vertically during animation, 
-  has no actual effect on font-size. Font size is dictated by animation. */
+  font-size: var(--row-height);
+  /* We would like to use 
+  font-size: var(--text-size-medium);
+  but setting the font-size to match height property prevents the text from moving vertically during animation, 
+  has no actual effect on font-size during animation. */
 }
 
-/* 
-  Weight axis: 100 – 700
-  Width axis: 85 – 100
-*/
 @font-face {
   font-family: "Kapsas";
   src: url("./../font/Kapsas0.09VF.ttf");
@@ -35,25 +37,8 @@
   src: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/85648/IBMPlexSansVar-Roman.ttf");
 }
 
-@font-face {
-  font-family: "BLACC";
-  src: url("./../font/BLACC___.TTF");
-}
-@font-face {
-  font-family: "BLACCS";
-  src: url("./../font/BLACCS__.TTF");
-}
-
 .Font-Kapsas {
   font-family: "Kapsas", "IBM Plex Sans"; /* Set primary font and fallbacks */
-}
-
-.Font-Blacc {
-  font-family: "BLACC";
-}
-
-.Font-BlaccShadow {
-  font-family: "BLACCS";
 }
 
 body {

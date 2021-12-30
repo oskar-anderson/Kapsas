@@ -12,7 +12,7 @@
 </head>
 <body>
   <div>
-    <div>
+    <div class="directChildrenInheritMarginTop" style="margin-top: 8px;">
 
       <div>
         
@@ -37,52 +37,32 @@
         <input type="color" id="css-var-input-text-color" value="#000000">
         
       </div>
-    </div>
-    <div>
-      <div>
-        <div class="center">
-          <label for="input-text-textarea">Text</label>
-          <textarea name="input-text" id="input-text-textarea"></textarea>
+
+      <div class="directChildrenInheritMarginTop" style="margin-top: 4px;">
+        <div >
+          <div class="center">
+            <label for="input-text-textarea">Text</label>
+            <textarea name="input-text" id="input-text-textarea" style="font-size: 18px;"></textarea>
+          </div>
+        </div>
+        <div>
+          <div class="center">
+            <label for="input-text-textarea">Keyframes</label>
+            <textarea name="input-text" id="input-keyframes-textarea" style="font-size: 18px;"></textarea>
+          </div>
+        </div>
+
+        <div>
+            <input id="btn-run" style="width: 120px; height: 40px;" type="button" value="Run">
         </div>
       </div>
-      <div>
-          <input id="btn-run" type="button" value="Run">
-      </div>
     </div>
+
     <div class="Font-Kapsas" id="input-to-output-text-render" style="margin-top: 40px;">
         <div data-splitting>
           Content will be rendered here
         </div>
     </div>
-  </div>
-
-  <div>
-    <div style="margin-top: 200px;">
-      <div class="fixed-height">
-        <div class="" data-splitting>regular</div>
-      </div>
-      
-      <div class="fixed-height">
-        <div class="" data-splitting><span style="display: none;">x</span>oxygen</div>
-      </div>
-      
-      <div class="fixed-height">
-        <div class="" data-splitting><span style="display: none;">xx</span>surpass</div>
-      </div>
-    </div>
-    
-    <div class="Font-BlaccShadow" style="margin-top: 200px;" data-splitting>
-      <div class="fixed-height">Cra</div>
-      <div class="fixed-height">fts</div>
-      <div class="fixed-height">man</div>
-    </div>
-
-    <div id="kapsas-demo" class="Font-Kapsas" style="margin-top: 200px;" data-splitting>
-      <div class="fixed-height">KAP</div>
-      <div class="fixed-height">SAS</div>
-    </div>
-
-
   </div>
 </body>
 </html>
@@ -153,13 +133,32 @@
   function InputEvents() {
     let elementInputText = document.querySelector("#input-text-textarea");
     elementInputText.value = 'regular\noxygen\nsurpass';
+    let elementKeyframes = document.querySelector('#input-keyframes-textarea');
+    elementKeyframes.value = `
+@keyframes breathe {
+0% {
+  font-variation-settings: 'wght' 100, 'wdth' 85;
+  font-size: var(--text-size-medium);
+}
 
-    elementInputText.addEventListener('change', () => { 
+60% {
+  font-variation-settings: 'wght' 700, 'wdth' 100;
+  font-size: var(--text-size-large);
+}
+
+100% {
+  font-variation-settings: 'wght' 100, 'wdth' 85;
+  font-size: var(--text-size-medium);
+}
+`.replace(/\r?\n/, "");  // forward slash starts and ends regex expression
+    elementInputText.addEventListener('input', () => { 
       PutTextIntoRender();
     })
   }
 
   function PutTextIntoRender() {
+    let elementKeyframes = document.querySelector('#input-keyframes-textarea');
+    ChangeKeyframes(elementKeyframes.value);
     let elementInputText = document.querySelector("#input-text-textarea");
     let rows = elementInputText.value.split(/\r?\n/);
     let outputAreaBuilder = "";
@@ -176,7 +175,13 @@
       PutTextIntoRender()
       Splitting();
     })
-    document.getElementById("kapsas-demo").style.fontFamily = "Impact,Charcoal,sans-serif";
+  }
+
+  function ChangeKeyframes(keyframes) {
+    var style = document.createElement('style');
+    style.type = 'text/css';
+    style.innerHTML = keyframes;
+    document.getElementsByTagName('head')[0].appendChild(style);
   }
 
 </script>
