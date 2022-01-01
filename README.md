@@ -1,6 +1,8 @@
 # Variable Font experiments
 
-![Demo gif](./_doc/pic/RegularOxygen.mov)
+Wave Effect
+
+![Wave](./_doc/pic/demo_pic_wave.png)
 
 Demo:
 

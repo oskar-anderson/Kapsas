@@ -3,8 +3,7 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="./css/main.css" rel="stylesheet" >
-  
-  <!-- https://splitting.js.org/ -->
+  <link href="./css/FontAwesome/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="./css/splitting.css" />
   <script src="./js/splitting.js"></script>
   <meta charset="utf-8"  />
@@ -32,38 +31,44 @@
       </div>
       <div>
         <label for="css-var-input-bg-color">BG color</label>
-        <input type="color" id="css-var-input-bg-color" value="#DCEDC8">
+        <input type="color" id="css-var-input-bg-color" value="#f5f5d4">
         <label for="css-var-input-text-color">Text color</label>
         <input type="color" id="css-var-input-text-color" value="#000000">
         
       </div>
 
       <div class="directChildrenInheritMarginTop" style="margin-top: 4px;">
-        <div >
-          <div class="center">
-            <label for="input-text-textarea">Text</label>
-            <textarea name="input-text" id="input-text-textarea" style="font-size: 18px;"></textarea>
-          </div>
+        <div class="center">
+          <label for="input-text-textarea">Text</label>
+          <textarea name="input-text" id="input-text-textarea" style="font-size: 18px;"></textarea>
         </div>
-        <div>
-          <div class="center">
-            <label for="input-text-textarea">Keyframes</label>
-            <textarea name="input-text" id="input-keyframes-textarea" style="font-size: 18px;"></textarea>
-          </div>
+
+        <div class="center">
+          <label for="input-text">Keyframes</label>
+          <textarea name="input-text" id="input-keyframes-textarea" style="font-size: 18px;"></textarea>
+        </div>
+
+        <div class="center">
+          <label class="button">
+            <span><i class="fas fa-upload"></i>Upload font</i></span>
+            <input style="display: none" type="file" id="input-font" class="csvFile" accept=".ttf">
+          </label>
         </div>
 
         <div>
-            <input id="btn-run" style="width: 120px; height: 40px;" type="button" value="Run">
+            <input type="button" style="width: 120px; height: 40px;" id="input-button-animation-state-toggle" value="State: running">
+            <input id="btn-start" style="width: 120px; height: 40px;" type="button" value="Start">
         </div>
       </div>
     </div>
 
-    <div class="Font-Kapsas" id="input-to-output-text-render" style="margin-top: 40px;">
+    <div class="font-uploaded set-keyframes-target" id="input-to-output-text-render" style="margin-top: 40px;">
         <div data-splitting>
           Content will be rendered here
         </div>
     </div>
   </div>
+</div>
 </body>
 </html>
 
@@ -72,12 +77,20 @@
   main();
 
   function main() {
+    SetCssValues();
+    SetHtmlValues();
+    HandleEvents();
+  }
+
+  function HandleEvents() {
     FontSizeEvents();
-    InputEvents();
-    RunRender();
     RowHeightEvent();
     AnimationEvents();
+    KeyframeChangeEvent();
+    HandleAnimationStateEvent();
     ColorEvents();
+    HandleStartEvent();
+    HandleFontFileUploadEvent();
   }
 
   function ColorEvents() {
@@ -121,6 +134,11 @@
 
   }
 
+  function KeyframeChangeEvent() {
+    let elementKeyframes = document.querySelector('#input-keyframes-textarea');
+    elementKeyframes.addEventListener('input', (e) => ChangeKeyframes(elementKeyframes.value));
+  }
+
   function RowHeightEvent() {
     let elementRowHeight = document.querySelector("#css-var-input-row-height");
     
@@ -129,12 +147,9 @@
       root.style.setProperty("--row-height", e.target.value + "px");
     });
   }
-  
-  function InputEvents() {
-    let elementInputText = document.querySelector("#input-text-textarea");
-    elementInputText.value = 'regular\noxygen\nsurpass';
-    let elementKeyframes = document.querySelector('#input-keyframes-textarea');
-    elementKeyframes.value = `
+
+  function GetDefaultKeyframesValue() {
+    return `
 @keyframes breathe {
 0% {
   font-variation-settings: 'wght' 100, 'wdth' 85;
@@ -151,14 +166,24 @@
   font-size: var(--text-size-medium);
 }
 `.replace(/\r?\n/, "");  // forward slash starts and ends regex expression
-    elementInputText.addEventListener('input', () => { 
-      PutTextIntoRender();
-    })
   }
 
-  function PutTextIntoRender() {
+
+  function SetHtmlValues() {
+    // Set values annoying to set using html to html elements
+    // Newline can be set in html using &#10; (the linefeed character literal), but using \n or string templates is more elegant
+    let elementInputText = document.querySelector("#input-text-textarea");
+    elementInputText.value = 'regular\noxygen\nsurpass';
     let elementKeyframes = document.querySelector('#input-keyframes-textarea');
-    ChangeKeyframes(elementKeyframes.value);
+    elementKeyframes.value = GetDefaultKeyframesValue();
+  }
+
+  function SetCssValues() {
+    ChangeKeyframes(GetDefaultKeyframesValue());
+  }
+
+
+  function PutTextIntoRender() {
     let elementInputText = document.querySelector("#input-text-textarea");
     let rows = elementInputText.value.split(/\r?\n/);
     let outputAreaBuilder = "";
@@ -169,8 +194,8 @@
     outputArea.innerHTML = `<div data-splitting>${outputAreaBuilder}<\div>`;
   }
 
-  function RunRender() {
-    let runBtn = document.querySelector("#btn-run");
+  function HandleStartEvent() {
+    let runBtn = document.querySelector("#btn-start");
     runBtn.addEventListener('click', (e) => {
       PutTextIntoRender()
       Splitting();
@@ -178,10 +203,50 @@
   }
 
   function ChangeKeyframes(keyframes) {
+    // This is bad code
     var style = document.createElement('style');
     style.type = 'text/css';
     style.innerHTML = keyframes;
-    document.getElementsByTagName('head')[0].appendChild(style);
+    document.head.appendChild(style);
+  }
+
+  function HandleAnimationStateEvent() {
+    let root = document.documentElement;
+    root.style.setProperty('--animation-play-state', `running`)
+    const toggle = document.getElementById('input-button-animation-state-toggle');
+    toggle.addEventListener('click', () => {
+      let newState = root.style.getPropertyValue('--animation-play-state') === 'running' ? 'paused' : 'running';
+      root.style.setProperty('--animation-play-state', newState); 
+      toggle.value = 'State: ' + newState;
+    });
+  }
+
+  function HandleFontFileUploadEvent() {
+    let reader = new FileReader();
+    reader.onload = function(event) {
+        let file = event.target.result;
+        // document.head.append('<style type="text/css">@font-face { font-family:"MYFONT2"; src: url("'+file+'"); }</style>');
+        SetFont(file)
+    }
+    let startReadingFile = (e) => {
+      let inputFont = document.querySelector('#input-font');
+      let input = inputFont.files[0];
+      reader.readAsDataURL(input);
+    }
+
+    document.querySelector('#input-font').addEventListener("change", startReadingFile);
+
+  }
+
+  function SetFont(fontFile) {
+    let newFontName = 'UploadedFont';
+    let font = new FontFace(newFontName, `url(${fontFile})`);
+    font.load().then(function(loaded_face) {
+      document.fonts.add(loaded_face);
+      document.documentElement.style.setProperty('--font-uploaded', `"${newFontName}"`)
+    }).catch(function(error) {
+      throw Error(error);
+    });
   }
 
 </script>
