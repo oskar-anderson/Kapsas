@@ -1,9 +1,9 @@
 :root {
-  --text-size-medium: 72px;
-  --text-size-large: 96px;
-  --row-height: 130px;
+  --text-size-medium: 200px;
+  --text-size-large: 200px;
+  --row-height: 200px;
   --animation-duration: 4000ms;
-  --animation-delay: 400ms;
+  --animation-delay: 0ms;
   --bg-color: #f5f5d4;        
   --text-color: #000000;
   --font-uploaded: "Kapsas", "IBM Plex Sans";
@@ -20,18 +20,9 @@
   align-items: center;
 }
 
-.fixed-height {
-  height: var(--row-height);
-  font-size: var(--row-height);
-  /* We would like to use 
-  font-size: var(--text-size-medium);
-  but setting the font-size to match height property prevents the text from moving vertically during animation, 
-  has no actual effect on font-size during animation. */
-}
-
 @font-face {
   font-family: "Kapsas";
-  src: url("./../font/Kapsas0.09VF.ttf");
+  src: url("./../font/Kapsas0.09VFWithKerning.ttf");
 }
 
 @font-face {
@@ -67,8 +58,7 @@ body {
 }
 
 .char {  /* This class name is added by splitting.js */
-  --delay: calc((var(--char-index) + 1) * var(--animation-delay));
   animation: breathe var(--animation-duration) infinite both; /* breathe is defined in js */
-  animation-delay: var(--delay);
+  animation-delay: calc((var(--char-index) + 1) * var(--animation-delay));
   animation-play-state: var(--animation-play-state);
 }
