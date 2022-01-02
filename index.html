@@ -188,7 +188,7 @@
     let rows = elementInputText.value.split(/\r?\n/);
     let outputAreaBuilder = "";
     rows.forEach(row => {
-      outputAreaBuilder += `<div>${row}</div>`;
+      outputAreaBuilder += `<div class="adjustableHeight">${row}</div>`;
     });
     let outputArea = document.querySelector("#input-to-output-text-render");
     outputArea.innerHTML = `<div data-splitting>${outputAreaBuilder}<\div>`;

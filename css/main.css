@@ -14,6 +14,11 @@
   margin-top: inherit;
 }
 
+.adjustableHeight {
+  height: var(--row-height);
+  font-size: max(var(--text-size-medium), var(--text-size-large));
+}
+
 .center {
   display: flex;
   justify-content: center;
@@ -55,6 +60,7 @@ body {
   text-align: center;
   background-color: var(--bg-color);
   color: var(--text-color);
+  height: 100vh;
 }
 
 .char {  /* This class name is added by splitting.js */
