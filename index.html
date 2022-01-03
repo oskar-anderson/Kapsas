@@ -11,14 +11,10 @@
 </head>
 <body>
   <div>
-    <div class="directChildrenInheritMarginTop" style="margin-top: 8px;">
+    <!-- Setting autocomplete off on input tags makes the values reset on soft refresh in FF --> 
+    <form autocomplete="off" class="directChildrenInheritMarginTop" style="padding-top: 8px; background-color: #f5f5d4;">
 
       <div>
-        
-        <label for="css-var-input-font-text-medium">Min font size</label>
-        <input id="css-var-input-font-text-medium" type="number" value="200"></input>
-        <label for="css-var-input-font-text-large">Max font size</label>
-        <input id="css-var-input-font-text-large" type="number" value="200"></input>
         <label for="css-var-input-row-height">Row height</label>
         <input id="css-var-input-row-height" type="number" value="200"></input>
       </div>
@@ -29,18 +25,11 @@
         <input id="css-var-input-font-animation-delay" type="number" value="0"></input>
         
       </div>
-      <div>
-        <label for="css-var-input-bg-color">BG color</label>
-        <input type="color" id="css-var-input-bg-color" value="#f5f5d4">
-        <label for="css-var-input-text-color">Text color</label>
-        <input type="color" id="css-var-input-text-color" value="#000000">
-        
-      </div>
 
       <div class="directChildrenInheritMarginTop" style="margin-top: 4px;">
         <div class="center">
           <label for="input-text-textarea">Text</label>
-          <textarea name="input-text" id="input-text-textarea" style="font-size: 18px;"></textarea>
+          <textarea name="input-text" id="input-text-textarea" style="font-size: 40px; font-family: var(--font-uploaded);"></textarea>
         </div>
 
         <div class="center">
@@ -57,10 +46,10 @@
 
         <div>
             <input type="button" style="width: 120px; height: 40px;" id="input-button-animation-state-toggle" value="State: running">
-            <input id="btn-start" style="width: 120px; height: 40px;" type="button" value="Start">
+            <input type="button" style="width: 120px; height: 40px;" id="btn-start" value="Start">
         </div>
       </div>
-    </div>
+    </form>
 
     <div class="font-uploaded set-keyframes-target" id="input-to-output-text-render" style="margin-top: 40px;">
         <div data-splitting>
@@ -83,28 +72,12 @@
   }
 
   function HandleEvents() {
-    FontSizeEvents();
     RowHeightEvent();
     AnimationEvents();
     KeyframeChangeEvent();
     HandleAnimationStateEvent();
-    ColorEvents();
     HandleStartEvent();
     HandleFontFileUploadEvent();
-  }
-
-  function ColorEvents() {
-    const inputHandler = function(e, styleVariable) {
-      let root = document.documentElement;
-      console.log(e.target.value)
-      root.style.setProperty(styleVariable, e.target.value);
-    }
-    
-    let elementInputBgColor = document.querySelector("#css-var-input-bg-color");
-    let elementInputTextColor = document.querySelector("#css-var-input-text-color");
- 
-    elementInputBgColor.addEventListener('change', (e) => { inputHandler(e, "--bg-color"); });
-    elementInputTextColor.addEventListener('change', (e) => { inputHandler(e, "--text-color"); });
   }
 
   function AnimationEvents() {
@@ -118,20 +91,6 @@
 
     elementInputMedium.addEventListener('input', (e) => { inputHandler(e, "--animation-duration"); });
     elementInputLarge.addEventListener('input', (e) => { inputHandler(e, "--animation-delay"); });
-  }
-
-  function FontSizeEvents() {
-    const inputHandler = function(e, styleVariable) {
-      let root = document.documentElement;
-      root.style.setProperty(styleVariable, e.target.value + "px");
-    }
-    
-    let elementInputMedium = document.querySelector("#css-var-input-font-text-medium");
-    let elementInputLarge = document.querySelector("#css-var-input-font-text-large");
-    
-    elementInputMedium.addEventListener('input', (e) => { inputHandler(e, "--text-size-medium"); });
-    elementInputLarge.addEventListener('input', (e) => { inputHandler(e, "--text-size-large"); });
-
   }
 
   function KeyframeChangeEvent() {
@@ -153,17 +112,20 @@
 @keyframes breathe {
 0% {
   font-variation-settings: 'wght' 100;
-  font-size: var(--text-size-medium);
+  font-size: 100px;
+  color: blue;
 }
 
 60% {
   font-variation-settings: 'wght' 700;
-  font-size: var(--text-size-large);
+  font-size: 200px;
+  color: red;
 }
 
 100% {
   font-variation-settings: 'wght' 100;
-  font-size: var(--text-size-medium);
+  font-size: 100px;
+  color: blue;
 }
 `.replace(/\r?\n/, "");  // forward slash starts and ends regex expression
   }
