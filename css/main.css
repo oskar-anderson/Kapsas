@@ -59,7 +59,7 @@ body {
 }
 
 .char {  /* This class name is added by splitting.js */
-  animation: breathe var(--animation-duration) infinite both; /* breathe is defined in js */
+  animation: myAnimation var(--animation-duration) infinite both; /* breathe is defined in js */
   animation-delay: calc((var(--char-index) + 1) * var(--animation-delay));
   animation-play-state: var(--animation-play-state);
 }

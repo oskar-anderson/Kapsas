@@ -12,7 +12,7 @@
 <body>
   <div>
     <!-- Setting autocomplete off on input tags makes the values reset on soft refresh in FF --> 
-    <form autocomplete="off" class="directChildrenInheritMarginTop" style="padding-top: 8px; background-color: #f5f5d4;">
+    <form autocomplete="off" class="directChildrenInheritMarginTop" style="padding: 8px; background-color: #f5f5d4;">
 
       <div>
         <label for="css-var-input-row-height">Row height</label>
@@ -109,8 +109,8 @@
 
   function GetDefaultKeyframesValue() {
     return `
-@keyframes breathe {
-0% {
+@keyframes myAnimation {
+0%, 100% {
   font-variation-settings: 'wght' 100;
   font-size: 100px;
   color: blue;
@@ -120,12 +120,6 @@
   font-variation-settings: 'wght' 700;
   font-size: 200px;
   color: red;
-}
-
-100% {
-  font-variation-settings: 'wght' 100;
-  font-size: 100px;
-  color: blue;
 }
 `.replace(/\r?\n/, "");  // forward slash starts and ends regex expression
   }
