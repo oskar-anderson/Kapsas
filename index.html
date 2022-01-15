@@ -16,13 +16,13 @@
     <!-- Setting autocomplete off on input tags makes the values reset on soft refresh in FF --> 
     <form autocomplete="off" class="directChildrenInheritMarginTop" style="padding: 8px; background-color: #f5f5d4;">
 
-      <div>
+      <div class="collapsable-el-settings">
         <label for="css-var-input-row-height">Row height</label>
         <input id="css-var-input-row-height" type="number" value="200"></input>
         <label for="css-var-input-bg-color">BG color</label>
         <input type="color" id="css-var-input-bg-color" value="#ffffff">
       </div>
-      <div>
+      <div class="collapsable-el-settings">
         <label for="css-var-input-font-animation-duration">Duration</label>
         <input id="css-var-input-font-animation-duration" type="number" value="4000"></input>
         <label for="css-var-input-font-animation-delay">Delay</label>
@@ -30,7 +30,7 @@
         
       </div>
 
-      <div class="directChildrenInheritMarginTop" style="margin-top: 4px;">
+      <div class="directChildrenInheritMarginTop collapsable-el-settings" style="margin-top: 4px;">
         <div class="center">
           <label for="input-text-textarea">Text</label>
           <textarea name="input-text" id="input-text-textarea" style="font-size: 40px; font-family: var(--font-uploaded);"></textarea>
@@ -61,6 +61,11 @@
             <input type="button" style="width: 120px; height: 40px;" id="input-button-animation-state-toggle" value="State: running">
             <input type="button" style="width: 120px; height: 40px;" id="btn-start" value="Start">
         </div>
+      </div>
+      <div style="margin-top: 8px;">
+        <span id="settings-collapse" data-state="expanded">
+          <i id="settings-collapse-icon" style="color: black;" class="fas fa-chevron-up"></i>
+        </span>
       </div>
     </form>
 
@@ -95,6 +100,7 @@
     ColorEvents();
     HandleFontFileUploadEvent();
     ContentEditableNoDivHackEvent();
+    HandleCollapseExpand();
   }
 
   function ColorEvents() {
@@ -106,6 +112,21 @@
     
     let elementInputBgColor = document.querySelector("#css-var-input-bg-color");
     elementInputBgColor.addEventListener('change', (e) => { inputHandler(e, "--bg-color"); });
+  }
+
+  function HandleCollapseExpand() {
+    let collapseClickEl = document.querySelector('#settings-collapse');
+    let collapseIconEl = document.querySelector('#settings-collapse-icon');
+    collapseClickEl.addEventListener('click', (e) => {
+      let toCollapseElements = document.querySelectorAll('.collapsable-el-settings');
+      let isCollapse = collapseClickEl.dataset.state === 'expanded';
+      collapseClickEl.dataset.state = isCollapse ? 'collapsed' : 'expanded';
+      for (let i = 0; i < toCollapseElements.length; i++) {
+        const element = toCollapseElements[i];
+        element.style.display = isCollapse ? 'none' : 'block';
+      }
+      collapseIconEl.className = isCollapse ? 'fas fa-chevron-down' : 'fas fa-chevron-up';
+    });
   }
 
   function AnimationEvents() {
