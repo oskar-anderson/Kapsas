@@ -8,11 +8,12 @@ Demo:
 
 https://oskar-anderson.github.io/Kapsas/
 
-Splitting.js:
+Links:
 
-https://splitting.js.org
+* https://splitting.js.org
+* https://highlightjs.org/
 
 Good articles:
 
-https://css-tricks.com/almanac/properties/a/animation/
-https://css-tricks.com/creating-an-editable-textarea-that-supports-syntax-highlighted-code/
+* https://css-tricks.com/almanac/properties/a/animation/
+* https://css-tricks.com/creating-an-editable-textarea-that-supports-syntax-highlighted-code/
