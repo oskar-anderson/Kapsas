@@ -15,3 +15,4 @@ https://splitting.js.org
 Good articles:
 
 https://css-tricks.com/almanac/properties/a/animation/
+https://css-tricks.com/creating-an-editable-textarea-that-supports-syntax-highlighted-code/

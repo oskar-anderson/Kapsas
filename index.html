@@ -4,6 +4,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="./css/main.css" rel="stylesheet" >
   <link href="./css/FontAwesome/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/default.min.css">
   <link rel="stylesheet" href="./css/splitting.css" />
   <script src="./js/splitting.js"></script>
   <meta charset="utf-8"  />
@@ -32,10 +33,14 @@
           <textarea name="input-text" id="input-text-textarea" style="font-size: 40px; font-family: var(--font-uploaded);"></textarea>
         </div>
 
-        <div class="center">
-          <label for="input-text">Keyframes</label>
-          <textarea name="input-text" id="input-keyframes-textarea" style="font-size: 18px;"></textarea>
+        <div class="center" style="padding: 8px 0;">
+          <p>Keyframes</p>
+          <div style="background-color: white; position: relative; padding: 8px; border: rgb(103, 103, 133) solid 1px;">
+            <div contenteditable name="input-text" spellcheck="false" id="input-keyframes-textinput"></div>
+            <pre id="input-keyframes-textoutput" aria-hidden="true"></pre>
+          </div>
         </div>
+
 
         <div class="center">
           <label class="button">
@@ -63,6 +68,8 @@
 
 <script type="module">
 
+  import hljs from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/es/highlight.min.js';
+
   main();
 
   function main() {
@@ -78,6 +85,7 @@
     HandleAnimationStateEvent();
     HandleStartEvent();
     HandleFontFileUploadEvent();
+    ContentEditableNoDivHackEvent();
   }
 
   function AnimationEvents() {
@@ -94,8 +102,24 @@
   }
 
   function KeyframeChangeEvent() {
-    let elementKeyframes = document.querySelector('#input-keyframes-textarea');
-    elementKeyframes.addEventListener('input', (e) => ChangeKeyframes(elementKeyframes.value));
+    let elementKeyframes = document.querySelector('#input-keyframes-textinput');
+    elementKeyframes.addEventListener('input', (e) => ChangeKeyframes(null));
+  }
+
+  function ContentEditableNoDivHackEvent() {
+    /* 
+    Replaces default enter <div> to enter <br> for pressing enter inside contenteditable element.
+    Line break element <br> is easier to manipulate to match the #input-keyframes-textinput and #input-keyframes-textoutput elements. 
+    */
+
+      document.addEventListener('keydown', event => {
+      if (event.key === 'Enter' && event.target.id === "input-keyframes-textinput") {
+        console.log("blocked");
+        document.execCommand('insertLineBreak')
+        event.preventDefault()
+      }
+    });
+
   }
 
   function RowHeightEvent() {
@@ -108,8 +132,7 @@
   }
 
   function GetDefaultKeyframesValue() {
-    return `
-@keyframes myAnimation {
+    let text = `@keyframes myAnimation {
 0%, 100% {
   font-variation-settings: 'wght' 100;
   font-size: 100px;
@@ -122,6 +145,7 @@
   color: red;
 }
 `.replace(/\r?\n/, "");  // forward slash starts and ends regex expression
+    return text;
   }
 
 
@@ -130,8 +154,10 @@
     // Newline can be set in html using &#10; (the linefeed character literal), but using \n or string templates is more elegant
     let elementInputText = document.querySelector("#input-text-textarea");
     elementInputText.value = 'regular\noxygen\nltLY';
-    let elementKeyframes = document.querySelector('#input-keyframes-textarea');
-    elementKeyframes.value = GetDefaultKeyframesValue();
+    let elementKeyframes = document.querySelector('#input-keyframes-textinput');
+    elementKeyframes.innerHTML = GetDefaultKeyframesValue();
+    let elementKeyframesHighlighting = document.querySelector('#input-keyframes-textoutput');
+    elementKeyframesHighlighting.innerHTML = hljs.highlight(elementKeyframes.innerHTML, {language: 'css'}).value;
   }
 
   function SetCssValues() {
@@ -158,12 +184,20 @@
     })
   }
 
-  function ChangeKeyframes(keyframes) {
+  function ChangeKeyframes(text = null) {
+    if (text === null) {
+      let elementKeyframes = document.querySelector('#input-keyframes-textinput');
+      text = elementKeyframes.innerHTML.replaceAll("<br>", "\n");
+    }
+
+
     // This is bad code
     var style = document.createElement('style');
     style.type = 'text/css';
-    style.innerHTML = keyframes;
+    style.innerHTML = text;
     document.head.appendChild(style);
+    let elementKeyframesHighlighting = document.querySelector('#input-keyframes-textoutput');
+    elementKeyframesHighlighting.innerHTML = hljs.highlight(text, {language: 'css'}).value;
   }
 
   function HandleAnimationStateEvent() {

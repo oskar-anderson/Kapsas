@@ -21,6 +21,30 @@
   align-items: center;
 }
 
+#input-keyframes-textinput, #input-keyframes-textoutput {
+  margin: 0;
+  font-size: 14pt;
+  font-family: monospace;
+  line-height: 20pt;
+  text-align: left;
+  white-space: pre-wrap;
+}
+
+#input-keyframes-textoutput {
+  z-index: 0;
+}
+
+#input-keyframes-textinput {
+  /* 
+  comment out position and color for easy debug
+  */
+  position: absolute;
+  color: transparent; 
+  z-index: 1;
+  caret-color: black;
+}
+
+
 @font-face {
   font-family: "Kapsas";
   src: url("./../font/Kapsas0.09VFWithKerning.ttf");
