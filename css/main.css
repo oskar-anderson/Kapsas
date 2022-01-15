@@ -1,9 +1,10 @@
 :root {
   --row-height: 200px;
   --animation-duration: 4000ms;
-  --animation-delay: 0ms;      
+  --bg-color: #ffffff;
+  --animation-delay: 0ms;
   --font-uploaded: "Kapsas", "IBM Plex Sans";
-  --animation-play-state: 'running'
+  --animation-play-state: 'running';
 }
 
 .directChildrenInheritMarginTop > * {
@@ -12,7 +13,6 @@
 
 .adjustableHeight {
   height: var(--row-height);
-  font-size: 600px;
 }
 
 .center {
@@ -78,6 +78,7 @@
 body {
   font-family: "IBM Plex Sans";
   text-align: center;
+  background-color: var(--bg-color);
   height: 100vh;
   margin: 0;
 }

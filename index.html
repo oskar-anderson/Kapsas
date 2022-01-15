@@ -18,6 +18,8 @@
       <div>
         <label for="css-var-input-row-height">Row height</label>
         <input id="css-var-input-row-height" type="number" value="200"></input>
+        <label for="css-var-input-bg-color">BG color</label>
+        <input type="color" id="css-var-input-bg-color" value="#ffffff">
       </div>
       <div>
         <label for="css-var-input-font-animation-duration">Duration</label>
@@ -35,6 +37,11 @@
 
         <div class="center" style="padding: 8px 0;">
           <p>Keyframes</p>
+          <span>
+            <a title="Animatable CSS properties" target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_animated_properties">
+              <i style="color: black;" class="fas fa-question-circle"></i>
+            </a>
+          </span>
           <div style="background-color: white; position: relative; padding: 8px; border: rgb(103, 103, 133) solid 1px;">
             <div contenteditable name="input-text" spellcheck="false" id="input-keyframes-textinput"></div>
             <pre id="input-keyframes-textoutput" aria-hidden="true"></pre>
@@ -56,7 +63,7 @@
       </div>
     </form>
 
-    <div class="font-uploaded set-keyframes-target" id="input-to-output-text-render" style="margin-top: 40px;">
+    <div class="font-uploaded set-keyframes-target" id="input-to-output-text-render" style="margin: 40px 0;">
         <div data-splitting>
           Content will be rendered here
         </div>
@@ -84,8 +91,20 @@
     KeyframeChangeEvent();
     HandleAnimationStateEvent();
     HandleStartEvent();
+    ColorEvents();
     HandleFontFileUploadEvent();
     ContentEditableNoDivHackEvent();
+  }
+
+  function ColorEvents() {
+    const inputHandler = function(e, styleVariable) {
+      let root = document.documentElement;
+      console.log(e.target.value);
+      root.style.setProperty(styleVariable, e.target.value);
+    }
+    
+    let elementInputBgColor = document.querySelector("#css-var-input-bg-color");
+    elementInputBgColor.addEventListener('change', (e) => { inputHandler(e, "--bg-color"); });
   }
 
   function AnimationEvents() {
@@ -132,7 +151,8 @@
   }
 
   function GetDefaultKeyframesValue() {
-    let text = `@keyframes myAnimation {
+    let text = `
+@keyframes myAnimation {
 0%, 100% {
   font-variation-settings: 'wght' 100;
   font-size: 100px;
