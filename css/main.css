@@ -28,6 +28,7 @@
   line-height: 20pt;
   text-align: left;
   white-space: pre-wrap;
+  outline: none; /* Chrome :focus-visible user agent stylesheet fix */
 }
 
 #input-keyframes-textoutput {
