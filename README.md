@@ -22,16 +22,17 @@ Good articles:
 
 ## Firefox
 
-'''
+```
 about:config
 security.fileuri.strict_origin_policy = false
-'''
+```
 
 ## XAMPP
 
-'''
+```
 install xampp
 start apache server in xampp
 put Kapsas to c:/xampp/htdocs/myApps/Kapsas
 access files http://localhost/myApps/Kapsas/index.html
-'''
+```
+
