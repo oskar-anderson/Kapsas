@@ -39,7 +39,7 @@
         <div class="center" style="padding: 8px 0;">
           <p>Keyframes</p>
           <span>
-            <a title="Animatable CSS properties" target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_animated_properties">
+            <a title="Animatable CSS properties" tabindex="-1" target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_animated_properties">
               <i style="color: black;" class="fas fa-question-circle"></i>
             </a>
           </span>
@@ -51,15 +51,14 @@
 
 
         <div class="center">
-          <label class="button">
-            <span><i class="fas fa-upload"></i>Upload font</i></span>
-            <input style="display: none" type="file" id="input-font" class="csvFile" accept=".ttf, .woff, .woff2">
-          </label>
+          <button type="button" tabindex="0" style="width: 120px; height: 40px;" id="input-font-btn">
+            <i class="fas fa-upload"></i>Upload font</i>
+          </button>
         </div>
 
         <div>
-            <input type="button" style="width: 120px; height: 40px;" id="input-button-animation-state-toggle" value="State: running">
-            <input type="button" style="width: 120px; height: 40px;" id="btn-start" value="Start">
+          <button type="button" tabindex="0" style="width: 120px; height: 40px;" id="input-button-animation-state-toggle">State: running</button>
+          <button type="button" tabindex="0" style="width: 120px; height: 40px;" id="btn-start">Start</button>
         </div>
       </div>
       <div style="margin-top: 8px;">
@@ -244,7 +243,7 @@
     toggle.addEventListener('click', () => {
       let newState = root.style.getPropertyValue('--animation-play-state') === 'running' ? 'paused' : 'running';
       root.style.setProperty('--animation-play-state', newState); 
-      toggle.value = 'State: ' + newState;
+      toggle.innerHTML = 'State: ' + newState;
     });
   }
 
@@ -255,13 +254,17 @@
         // document.head.append('<style type="text/css">@font-face { font-family:"MYFONT2"; src: url("'+file+'"); }</style>');
         SetFont(file)
     }
-    let startReadingFile = (e) => {
-      let inputFont = document.querySelector('#input-font');
-      let input = inputFont.files[0];
-      reader.readAsDataURL(input);
+    let startReadingFile = (thisElement) => {
+      let inputFile = thisElement.files[0];
+      reader.readAsDataURL(inputFile);
     }
-
-    document.querySelector('#input-font').addEventListener("change", startReadingFile);
+    let input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.ttf, .woff, .woff2';
+    document.querySelector('#input-font-btn').addEventListener("click", () =>  {
+      input.click();
+    });
+    input.addEventListener("change", () => startReadingFile(input));
 
   }
 

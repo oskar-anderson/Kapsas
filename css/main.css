@@ -60,6 +60,7 @@
   font-family: var(--font-uploaded);
 }
 
+/* button class is currently unused */
 .button {
   background: hsl(124, 34%, 65%);
   justify-content: center;
