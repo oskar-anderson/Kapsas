@@ -20,6 +20,12 @@ Good articles:
 
 # Bypass CORS to use ES6 modules:
 
+## Use Python http.server
+```
+open project directory in terminal
+pyServer.py 
+```
+
 ## Firefox
 
 ```
