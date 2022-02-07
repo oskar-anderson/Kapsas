@@ -3,7 +3,6 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="./css/main.css" rel="stylesheet" >
-  <link href="./css/FontAwesome/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/default.min.css">
   <link rel="stylesheet" href="./css/splitting.css" />
   <script src="./js/splitting.js"></script>
@@ -40,7 +39,7 @@
           <p>Keyframes</p>
           <span>
             <a title="Animatable CSS properties" tabindex="-1" target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_animated_properties">
-              <i style="color: black;" class="fas fa-question-circle"></i>
+              <img style="color: black;" src="svg/question-circle-solid.svg" alt="question-circle-solid.svg" height="16px"></img>
             </a>
           </span>
           <div style="background-color: white; position: relative; padding: 8px; border: rgb(103, 103, 133) solid 1px;">
@@ -52,7 +51,7 @@
 
         <div class="center">
           <button type="button" tabindex="0" style="width: 120px; height: 40px;" id="input-font-btn">
-            <i class="fas fa-upload"></i>Upload font</i>
+            <img src="svg/upload-solid.svg" alt="upload-solid.svg" height="16px">Upload font</img>
           </button>
         </div>
 
@@ -62,9 +61,7 @@
         </div>
       </div>
       <div style="margin-top: 8px;">
-        <span id="settings-collapse" data-state="expanded">
-          <i id="settings-collapse-icon" style="color: black;" class="fas fa-chevron-up"></i>
-        </span>
+        <img id="settings-collapse" data-state="expanded" style="color: black;" src="svg/chevron-up-solid.svg" alt="chevron-up-solid.svg" height="16px"/>
       </div>
     </form>
 
@@ -115,7 +112,6 @@
 
   function HandleCollapseExpand() {
     let collapseClickEl = document.querySelector('#settings-collapse');
-    let collapseIconEl = document.querySelector('#settings-collapse-icon');
     collapseClickEl.addEventListener('click', (e) => {
       let toCollapseElements = document.querySelectorAll('.collapsable-el-settings');
       let isCollapse = collapseClickEl.dataset.state === 'expanded';
@@ -124,7 +120,7 @@
         const element = toCollapseElements[i];
         element.style.display = isCollapse ? 'none' : 'block';
       }
-      collapseIconEl.className = isCollapse ? 'fas fa-chevron-down' : 'fas fa-chevron-up';
+      [collapseClickEl.src, collapseClickEl.alt] = isCollapse ? ['svg/chevron-down-solid.svg', "chevron-down-solid.svg"] : ['svg/chevron-up-solid.svg', "chevron-up-solid.svg"];
     });
   }
 

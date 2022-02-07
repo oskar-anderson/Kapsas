@@ -23,7 +23,7 @@ Good articles:
 ## Use Python http.server
 ```
 open project directory in terminal
-pyServer.py 
+python pyServer.py 
 ```
 
 ## Firefox
