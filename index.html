@@ -13,26 +13,18 @@
 <body>
   <div>
     <!-- Setting autocomplete off on input tags makes the values reset on soft refresh in FF --> 
-    <form autocomplete="off" class="directChildrenInheritMarginTop" style="padding: 8px; background-color: #f5f5d4;">
-
-      <div class="collapsable-el-settings">
-        <label for="css-var-input-row-height">Row height</label>
-        <input id="css-var-input-row-height" type="number" value="200"></input>
-        <label for="css-var-input-bg-color">BG color</label>
-        <input type="color" id="css-var-input-bg-color" value="#ffffff">
-      </div>
-      <div class="collapsable-el-settings">
-        <label for="css-var-input-font-animation-duration">Duration</label>
-        <input id="css-var-input-font-animation-duration" type="number" value="4000"></input>
-        <label for="css-var-input-font-animation-delay">Delay</label>
-        <input id="css-var-input-font-animation-delay" type="number" value="0"></input>
-        
-      </div>
+    <form autocomplete="off" class="directChildrenInheritMarginTop" style="padding: 8px; background-color: #f5f5d4; text-align: center;">
 
       <div class="directChildrenInheritMarginTop collapsable-el-settings" style="margin-top: 4px;">
+        <p>Settings</p>
+        <style id="animation-settings" contenteditable="" class="font-lucida-console css-contenteditable-wrapper collapsable-el-settings" style="display: block; text-align: left; white-space: pre;"></style>
+  
+        
         <div class="center">
           <label for="input-text-textarea">Text</label>
-          <textarea name="input-text" id="input-text-textarea" style="font-size: 40px; font-family: var(--font-uploaded);"></textarea>
+          <div contenteditable name="input-text" class="css-contenteditable-wrapper" style="overflow-wrap: break-word; font-size: 40px; font-family: var(--font-uploaded);">
+            <div id="input-text-textarea"></div>
+          </div>
         </div>
 
         <div class="center" style="padding: 8px 0;">
@@ -42,8 +34,8 @@
               <img style="color: black;" src="svg/question-circle-solid.svg" alt="question-circle-solid.svg" height="16px"></img>
             </a>
           </span>
-          <div style="background-color: white; position: relative; padding: 8px; border: rgb(103, 103, 133) solid 1px;">
-            <div contenteditable name="input-text" spellcheck="false" id="input-keyframes-textinput"></div>
+          <div class="css-contenteditable-wrapper">
+            <div contenteditable name="input-text" spellcheck="false" class="input-keyframes-textinput" id="input-keyframes-textinput"></div>
             <pre id="input-keyframes-textoutput" aria-hidden="true"></pre>
           </div>
         </div>
@@ -65,7 +57,7 @@
       </div>
     </form>
 
-    <div class="font-uploaded set-keyframes-target" id="input-to-output-text-render" style="margin: 40px 0;">
+    <div class="font-uploaded set-keyframes-target" id="input-to-output-text-render" style="margin: 40px 0; text-align: center;">
         <div data-splitting>
           Content will be rendered here
         </div>
@@ -88,26 +80,12 @@
   }
 
   function HandleEvents() {
-    RowHeightEvent();
-    AnimationEvents();
     KeyframeChangeEvent();
     HandleAnimationStateEvent();
     HandleStartEvent();
-    ColorEvents();
     HandleFontFileUploadEvent();
     ContentEditableNoDivHackEvent();
     HandleCollapseExpand();
-  }
-
-  function ColorEvents() {
-    const inputHandler = function(e, styleVariable) {
-      let root = document.documentElement;
-      console.log(e.target.value);
-      root.style.setProperty(styleVariable, e.target.value);
-    }
-    
-    let elementInputBgColor = document.querySelector("#css-var-input-bg-color");
-    elementInputBgColor.addEventListener('change', (e) => { inputHandler(e, "--bg-color"); });
   }
 
   function HandleCollapseExpand() {
@@ -122,19 +100,6 @@
       }
       [collapseClickEl.src, collapseClickEl.alt] = isCollapse ? ['svg/chevron-down-solid.svg', "chevron-down-solid.svg"] : ['svg/chevron-up-solid.svg', "chevron-up-solid.svg"];
     });
-  }
-
-  function AnimationEvents() {
-    const inputHandler = function(e, styleVariable) {
-      let root = document.documentElement;
-      root.style.setProperty(styleVariable, e.target.value + "ms");
-    }
-    
-    let elementInputMedium = document.querySelector("#css-var-input-font-animation-duration");
-    let elementInputLarge = document.querySelector("#css-var-input-font-animation-delay");
-
-    elementInputMedium.addEventListener('input', (e) => { inputHandler(e, "--animation-duration"); });
-    elementInputLarge.addEventListener('input', (e) => { inputHandler(e, "--animation-delay"); });
   }
 
   function KeyframeChangeEvent() {
@@ -158,28 +123,31 @@
 
   }
 
-  function RowHeightEvent() {
-    let elementRowHeight = document.querySelector("#css-var-input-row-height");
-    
-    elementRowHeight.addEventListener('input', (e) => { 
-      let root = document.documentElement;
-      root.style.setProperty("--row-height", e.target.value + "px");
-    });
-  }
-
   function GetDefaultKeyframesValue() {
     let text = `
 @keyframes myAnimation {
 0%, 100% {
   font-variation-settings: 'wght' 100;
   font-size: 100px;
-  color: blue;
+  color: #0000FF;
 }
 
 60% {
   font-variation-settings: 'wght' 700;
   font-size: 200px;
-  color: red;
+  color: #FF0000;
+}
+`.replace(/\r?\n/, "");  // forward slash starts and ends regex expression
+    return text;
+  }
+
+  function GetDefaultSettings() {
+    let text = `
+:root {
+  --row-height: 200px;
+  --animation-duration: 4000ms;
+  --bg-color: #ffffff;
+  --animation-delay: 0ms;  /* Experimental */
 }
 `.replace(/\r?\n/, "");  // forward slash starts and ends regex expression
     return text;
@@ -190,21 +158,24 @@
     // Set values annoying to set using html to html elements
     // Newline can be set in html using &#10; (the linefeed character literal), but using \n or string templates is more elegant
     let elementInputText = document.querySelector("#input-text-textarea");
-    elementInputText.value = 'regular\noxygen\nltLY';
+    elementInputText.innerHTML = 'regular<br>oxygen<br>ltLY';
     let elementKeyframes = document.querySelector('#input-keyframes-textinput');
     elementKeyframes.innerHTML = GetDefaultKeyframesValue();
     let elementKeyframesHighlighting = document.querySelector('#input-keyframes-textoutput');
     elementKeyframesHighlighting.innerHTML = hljs.highlight(elementKeyframes.innerHTML, {language: 'css'}).value;
+    let elementSettingsInput = document.querySelector('#animation-settings');
+    elementSettingsInput.innerHTML = GetDefaultSettings();
   }
 
   function SetCssValues() {
     ChangeKeyframes(GetDefaultKeyframesValue());
+    
   }
 
 
   function PutTextIntoRender() {
     let elementInputText = document.querySelector("#input-text-textarea");
-    let rows = elementInputText.value.split(/\r?\n/);
+    let rows = elementInputText.innerHTML.split(/<br>/);
     let outputAreaBuilder = "";
     rows.forEach(row => {
       outputAreaBuilder += `<div class="adjustableHeight">${row}</div>`;

@@ -1,8 +1,11 @@
 :root {
-  --row-height: 200px;
+  
+  /* These values are overwritten in page html
+  --row-height: 200px; 
   --animation-duration: 4000ms;
   --bg-color: #ffffff;
   --animation-delay: 0ms;
+  */
   --font-uploaded: "Kapsas", "IBM Plex Sans";
   --animation-play-state: 'running';
 }
@@ -35,7 +38,7 @@
   z-index: 0;
 }
 
-#input-keyframes-textinput {
+.input-keyframes-textinput {
   /* 
   comment out position and color for easy debug
   */
@@ -45,6 +48,16 @@
   caret-color: black;
 }
 
+.css-contenteditable-wrapper {
+  background-color: #ffffff;
+  position: relative;
+  padding: 8px;
+  border: rgb(103, 103, 133) solid 1px;
+}
+
+.font-lucida-console {
+  font-family: "Lucida Console", "Courier New", monospace;
+}
 
 @font-face {
   font-family: "Kapsas";
@@ -79,7 +92,6 @@
 
 body {
   font-family: "IBM Plex Sans";
-  text-align: center;
   background-color: var(--bg-color);
   height: 100vh;
   margin: 0;
