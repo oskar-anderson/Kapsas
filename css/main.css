@@ -24,7 +24,7 @@
   align-items: center;
 }
 
-#input-keyframes-textinput, #input-keyframes-textoutput {
+.input-textinput, .input-textoutput {
   margin: 0;
   font-size: 14pt;
   font-family: monospace;
@@ -34,11 +34,11 @@
   outline: none; /* Chrome :focus-visible user agent stylesheet fix */
 }
 
-#input-keyframes-textoutput {
+.input-textoutput {
   z-index: 0;
 }
 
-.input-keyframes-textinput {
+.input-textinput {
   /* 
   comment out position and color for easy debug
   */
@@ -53,10 +53,6 @@
   position: relative;
   padding: 8px;
   border: rgb(103, 103, 133) solid 1px;
-}
-
-.font-lucida-console {
-  font-family: "Lucida Console", "Courier New", monospace;
 }
 
 @font-face {

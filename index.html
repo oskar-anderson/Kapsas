@@ -6,39 +6,54 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/default.min.css">
   <link rel="stylesheet" href="./css/splitting.css" />
   <script src="./js/splitting.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   <meta charset="utf-8"  />
-  <style id="injected-keyframes-style"></style>
   <title>Kapsas</title>
 </head>
 <body>
   <div>
     <!-- Setting autocomplete off on input tags makes the values reset on soft refresh in FF --> 
-    <form autocomplete="off" class="directChildrenInheritMarginTop" style="padding: 8px; background-color: #f5f5d4; text-align: center;">
-
+    <div autocomplete="off" class="directChildrenInheritMarginTop" style="padding: 8px; background-color: #f5f5d4; text-align: center;">
+      <div id="accordion">
       <div class="directChildrenInheritMarginTop collapsable-el-settings" style="margin-top: 4px;">
-        <p>Settings</p>
-        <style id="animation-settings" contenteditable="" class="font-lucida-console css-contenteditable-wrapper collapsable-el-settings" style="display: block; text-align: left; white-space: pre;"></style>
-  
-        
-        <div class="center">
-          <label for="input-text-textarea">Text</label>
-          <div contenteditable name="input-text" class="css-contenteditable-wrapper" style="overflow-wrap: break-word; font-size: 40px; font-family: var(--font-uploaded);">
-            <div id="input-text-textarea"></div>
+        <div class="collapsable-el-settings card">
+          <button style="padding: .75rem 1.25rem;" data-toggle="collapse" data-target="#collapseOne">
+            Settings
+          </button>
+          <div id="collapseOne" class="css-contenteditable-wrapper collapse show" data-parent="#accordion" style="text-align: left;">
+            <style id="animation-settings-input" contenteditable="" spellcheck="false" class="input-textinput" style="display: block;"></style>
+            <pre id="animation-settings-textoutput" class="input-textoutput" aria-hidden="true"></pre>
           </div>
         </div>
 
-        <div class="center" style="padding: 8px 0;">
-          <p>Keyframes</p>
-          <span>
-            <a title="Animatable CSS properties" tabindex="-1" target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_animated_properties">
-              <img style="color: black;" src="svg/question-circle-solid.svg" alt="question-circle-solid.svg" height="16px"></img>
-            </a>
-          </span>
-          <div class="css-contenteditable-wrapper">
-            <div contenteditable name="input-text" spellcheck="false" class="input-keyframes-textinput" id="input-keyframes-textinput"></div>
-            <pre id="input-keyframes-textoutput" aria-hidden="true"></pre>
+        <div class="collapsable-el-settings card">
+          <button style="padding: .75rem 1.25rem;" data-toggle="collapse" data-target="#collapseTwo">
+            Text
+          </button>
+          <div id="collapseTwo" contenteditable class="css-contenteditable-wrapper collapse show" data-parent="#accordion" style="overflow-wrap: break-word; font-size: 40px; font-family: var(--font-uploaded);">
+            <div id="input-text-textarea" spellcheck="false"></div>
           </div>
         </div>
+
+        <div class="collapsable-el-settings card">
+          <button style="padding: .75rem 1.25rem;" data-toggle="collapse" data-target="#collapseThree">
+            <span>Keyframes
+              <span>
+                <a title="Animatable CSS properties" tabindex="-1" target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_animated_properties">
+                  <img style="color: black;" src="svg/question-circle-solid.svg" alt="question-circle-solid.svg" height="16px"></img>
+                </a>
+              </span>
+            </span>
+          </button>
+          <div id="collapseThree" class="css-contenteditable-wrapper collapse show" data-parent="#accordion">
+            <style contenteditable spellcheck="false" class="input-textinput" id="input-keyframes-textinput" style="display: block;"></style>
+            <pre id="input-keyframes-textoutput" class="input-textoutput" aria-hidden="true"></pre>
+          </div>
+        </div>
+        
 
 
         <div class="center">
@@ -55,7 +70,8 @@
       <div style="margin-top: 8px;">
         <img id="settings-collapse" data-state="expanded" style="color: black;" src="svg/chevron-up-solid.svg" alt="chevron-up-solid.svg" height="16px"/>
       </div>
-    </form>
+      </div>
+    </div>
 
     <div class="font-uploaded set-keyframes-target" id="input-to-output-text-render" style="margin: 40px 0; text-align: center;">
         <div data-splitting>
@@ -81,6 +97,7 @@
 
   function HandleEvents() {
     KeyframeChangeEvent();
+    SettingsChangeEvent();
     HandleAnimationStateEvent();
     HandleStartEvent();
     HandleFontFileUploadEvent();
@@ -104,7 +121,13 @@
 
   function KeyframeChangeEvent() {
     let elementKeyframes = document.querySelector('#input-keyframes-textinput');
-    elementKeyframes.addEventListener('input', (e) => ChangeKeyframes(null));
+    elementKeyframes.addEventListener('input', (e) => ChangeContenteditableHighlight(null, '#input-keyframes-textinput', '#input-keyframes-textoutput'));
+  }
+
+  function SettingsChangeEvent() {
+    let animationSettings = document.querySelector('#animation-settings-input');
+    animationSettings.addEventListener('input', (e) => ChangeContenteditableHighlight(null, '#animation-settings-input', '#animation-settings-textoutput'));
+  
   }
 
   function ContentEditableNoDivHackEvent() {
@@ -163,12 +186,14 @@
     elementKeyframes.innerHTML = GetDefaultKeyframesValue();
     let elementKeyframesHighlighting = document.querySelector('#input-keyframes-textoutput');
     elementKeyframesHighlighting.innerHTML = hljs.highlight(elementKeyframes.innerHTML, {language: 'css'}).value;
-    let elementSettingsInput = document.querySelector('#animation-settings');
+    let elementSettingsInput = document.querySelector('#animation-settings-input');
     elementSettingsInput.innerHTML = GetDefaultSettings();
+    let elementSettingsHighlighting = document.querySelector('#animation-settings-textoutput');
+    elementSettingsHighlighting.innerHTML = hljs.highlight(elementSettingsInput.innerHTML, {language: 'css'}).value;
   }
 
   function SetCssValues() {
-    ChangeKeyframes(GetDefaultKeyframesValue());
+    ChangeContenteditableHighlight(GetDefaultKeyframesValue(), '#input-keyframes-textinput', '#input-keyframes-textoutput');
     
   }
 
@@ -192,16 +217,15 @@
     })
   }
 
-  function ChangeKeyframes(text = null) {
+  function ChangeContenteditableHighlight(text, inputSelector, outputSelector) {
     if (text === null) {
-      let elementKeyframes = document.querySelector('#input-keyframes-textinput');
-      text = elementKeyframes.innerHTML.replaceAll("<br>", "\n");
+      let animationSettings = document.querySelector(inputSelector);
+      text = animationSettings.innerHTML.replaceAll("<br>", "\n");
     }
 
-    document.querySelector('#injected-keyframes-style').innerHTML = text;
-    let elementKeyframesHighlighting = document.querySelector('#input-keyframes-textoutput');
-    elementKeyframesHighlighting.innerHTML = hljs.highlight(text, {language: 'css'}).value;
-  }
+    let animationSettingsHighLight = document.querySelector(outputSelector);
+    animationSettingsHighLight.innerHTML = hljs.highlight(text, {language: 'css'}).value;
+  } 
 
   function HandleAnimationStateEvent() {
     let root = document.documentElement;
