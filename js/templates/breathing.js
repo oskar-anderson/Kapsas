@@ -1,4 +1,4 @@
-import BaseTemplate from "./_baseTemplate.js";
+import BaseTemplate from "./baseTemplate.js";
 
 export default class Breathing {
     GetStyle() {
