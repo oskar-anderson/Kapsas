@@ -1,44 +1,48 @@
-# Variable Font experiments
+# [Variable font playground](https://oskar-anderson.github.io/Kapsas/)
 
-Wave Effect
+Playground for regular and variable font animation.
+
 
 ![Wave](./_doc/pic/demo_pic_wave.png)
 
-Demo:
+Live: https://oskar-anderson.github.io/Kapsas/
 
-https://oskar-anderson.github.io/Kapsas/
 
-Links:
+# Used Libraries:
 
-* https://splitting.js.org
-* https://highlightjs.org/
+* https://splitting.js.org (animation)
+* https://highlightjs.org/ (client side css and js highlighing)
+* https://getbootstrap.com (element collapse)
+
+# Running locally:
+
+CORS prevents the use ES6 modules over the `file://` protocol, so you cannot just run the project by opening the `index.html` file. The project has to run as a server.
+
+## Option 1: use Python http.server
+
+open project directory in terminal
+
+```
+python pyServer.py 
+```
+Or
+```
+python3 pyServer.py
+```
+
+## Option 2: Firefox
+
+Enter URL `about:config` and set value `
+security.fileuri.strict_origin_policy = false
+`
+
+Reload the browser.
+
+# Extra
 
 Good articles:
 
 * https://css-tricks.com/almanac/properties/a/animation/
 * https://css-tricks.com/creating-an-editable-textarea-that-supports-syntax-highlighted-code/
 
-# Bypass CORS to use ES6 modules:
-
-## Use Python http.server
-```
-open project directory in terminal
-python pyServer.py 
-```
-
-## Firefox
-
-```
-about:config
-security.fileuri.strict_origin_policy = false
-```
-
-## XAMPP
-
-```
-install xampp
-start apache server in xampp
-put Kapsas to c:/xampp/htdocs/myApps/Kapsas
-access files http://localhost/myApps/Kapsas/index.html
-```
-
+https://fontgauntlet.com (interesting)
