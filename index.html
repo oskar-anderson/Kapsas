@@ -17,59 +17,74 @@
   <div>
     <!-- Setting autocomplete off on input tags makes the values reset on soft refresh in FF --> 
     <div autocomplete="off" class="directChildrenInheritMarginTop" style="padding: 8px; background-color: #f5f5d4; text-align: center;">
-      <div id="accordion">
       <div class="directChildrenInheritMarginTop collapsable-el-settings" style="margin-top: 4px;">
-        <div class="collapsable-el-settings card">
-          <button style="padding: .75rem 1.25rem;" data-toggle="collapse" data-target="#collapseOne">
-            Settings
+        
+        <div>
+          <p>Preset</p>
+          <button id="preset-breathing" class="button" style="padding: .75rem 1.25rem;">Breathing</button>
+          <button id="preset-diagonal-stripes" class="button" style="padding: .75rem 1.25rem;">Diagonal stripes</button>
+        </div>
+
+        <div class="collapsable-el-settings">
+          <button class="button" style="padding: .75rem 1.25rem; width: 100%" data-toggle="collapse" data-target="#collapseOne">
+            Style
           </button>
-          <div id="collapseOne" class="css-contenteditable-wrapper collapse show" data-parent="#accordion" style="text-align: left;">
-            <style id="animation-settings-input" contenteditable="" spellcheck="false" class="input-textinput" style="display: block;"></style>
-            <pre id="animation-settings-textoutput" class="input-textoutput" aria-hidden="true"></pre>
+          <div id="collapseOne" class="css-contenteditable-wrapper collapse" style="text-align: left;">
+            <style id="animation-style-input" contenteditable="" spellcheck="false" class="input-textinput" style="display: block;"></style>
+            <pre id="animation-style-textoutput" class="input-textoutput" aria-hidden="true"></pre>
           </div>
         </div>
 
-        <div class="collapsable-el-settings card">
-          <button style="padding: .75rem 1.25rem;" data-toggle="collapse" data-target="#collapseTwo">
-            Text
-          </button>
-          <div id="collapseTwo" contenteditable class="css-contenteditable-wrapper collapse show" data-parent="#accordion" style="overflow-wrap: break-word; font-size: 40px; font-family: var(--font-uploaded);">
-            <div id="input-text-textarea" spellcheck="false"></div>
-          </div>
-        </div>
-
-        <div class="collapsable-el-settings card">
-          <button style="padding: .75rem 1.25rem;" data-toggle="collapse" data-target="#collapseThree">
+        
+        <div class="collapsable-el-settings">
+          <button class="button" style="padding: .75rem 1.25rem; width: 100%" data-toggle="collapse" data-target="#collapseThree">
             <span>Keyframes
               <span>
                 <a title="Animatable CSS properties" tabindex="-1" target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_animated_properties">
-                  <img style="color: black;" src="svg/question-circle-solid.svg" alt="question-circle-solid.svg" height="16px"></img>
+                  <img style="color: #ffffff;" src="svg/question-circle-solid.svg" alt="question-circle-solid.svg" height="16px"></img>
                 </a>
               </span>
             </span>
           </button>
-          <div id="collapseThree" class="css-contenteditable-wrapper collapse show" data-parent="#accordion">
+          <div id="collapseThree" class="css-contenteditable-wrapper collapse">
             <style contenteditable spellcheck="false" class="input-textinput" id="input-keyframes-textinput" style="display: block;"></style>
             <pre id="input-keyframes-textoutput" class="input-textoutput" aria-hidden="true"></pre>
+          </div>
+        </div>
+
+
+        <div class="collapsable-el-settings">
+          <button class="button" style="padding: .75rem 1.25rem; width: 100%" data-toggle="collapse" data-target="#collapseTwo">
+            Text
+          </button>
+          <div id="collapseTwo" contenteditable class="css-contenteditable-wrapper collapse" style="overflow-wrap: break-word; font-size: 40px; font-family: var(--font-uploaded);">
+            <div id="input-text-textarea" spellcheck="false"></div>
+          </div>
+        </div>
+
+
+        <div class="collapsable-el-settings">
+          <button class="button" style="padding: .75rem 1.25rem; width: 100%" data-toggle="collapse" data-target="#collapseFour">
+            Script
+          </button>
+          <div id="collapseFour" class="css-contenteditable-wrapper collapse" style="text-align: left;">
+            <style id="script-input" contenteditable="" spellcheck="false" class="input-textinput" style="display: block;"></style>
+            <pre id="script-textoutput" class="input-textoutput" aria-hidden="true"></pre>
           </div>
         </div>
         
 
 
         <div class="center">
-          <button type="button" tabindex="0" style="width: 120px; height: 40px;" id="input-font-btn">
-            <img src="svg/upload-solid.svg" alt="upload-solid.svg" height="16px">Upload font</img>
+          <button class="button" type="button" tabindex="0" style="width: 140px; height: 40px;" id="input-font-btn">
+            <img style="color: #ffffff;" src="svg/upload-solid.svg" alt="upload-solid.svg" height="16px">Upload font</img>
           </button>
         </div>
 
         <div>
-          <button type="button" tabindex="0" style="width: 120px; height: 40px;" id="input-button-animation-state-toggle">State: running</button>
-          <button type="button" tabindex="0" style="width: 120px; height: 40px;" id="btn-start">Start</button>
+          <button class="button" type="button" tabindex="0" style="width: 140px; height: 40px;" id="input-button-animation-state-toggle">State: running</button>
+          <button class="button" type="button" tabindex="0" style="width: 140px; height: 40px;" id="btn-start">Restart</button>
         </div>
-      </div>
-      <div style="margin-top: 8px;">
-        <img id="settings-collapse" data-state="expanded" style="color: black;" src="svg/chevron-up-solid.svg" alt="chevron-up-solid.svg" height="16px"/>
-      </div>
       </div>
     </div>
 
@@ -86,48 +101,53 @@
 <script type="module">
 
   import hljs from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/es/highlight.min.js';
+  import Template from './js/template.js';
+  import Breating from './js/templates/breathing.js'
+  import DiagonalStripes from './js/templates/diagonalStripes.js'
+
+  let breathingTemplate = new Template(new Breating().GetStyle, new Breating().GetKeyframes, GetDefaultScript);
+  let diagonalStripesTemplate = new Template(new DiagonalStripes().GetStyle, new DiagonalStripes().GetKeyframes, GetDefaultScript);
+  let templates = [breathingTemplate, diagonalStripesTemplate];
 
   main();
 
   function main() {
-    SetCssValues();
-    SetHtmlValues();
+    SetHtmlValues(templates[0]);
     HandleEvents();
   }
 
   function HandleEvents() {
     KeyframeChangeEvent();
     SettingsChangeEvent();
+    ScriptChangeEvent();
     HandleAnimationStateEvent();
-    HandleStartEvent();
     HandleFontFileUploadEvent();
+    HandleStartEvent();
     ContentEditableNoDivHackEvent();
-    HandleCollapseExpand();
-  }
-
-  function HandleCollapseExpand() {
-    let collapseClickEl = document.querySelector('#settings-collapse');
-    collapseClickEl.addEventListener('click', (e) => {
-      let toCollapseElements = document.querySelectorAll('.collapsable-el-settings');
-      let isCollapse = collapseClickEl.dataset.state === 'expanded';
-      collapseClickEl.dataset.state = isCollapse ? 'collapsed' : 'expanded';
-      for (let i = 0; i < toCollapseElements.length; i++) {
-        const element = toCollapseElements[i];
-        element.style.display = isCollapse ? 'none' : 'block';
-      }
-      [collapseClickEl.src, collapseClickEl.alt] = isCollapse ? ['svg/chevron-down-solid.svg', "chevron-down-solid.svg"] : ['svg/chevron-up-solid.svg', "chevron-up-solid.svg"];
-    });
+    HandlePresets();
   }
 
   function KeyframeChangeEvent() {
     let elementKeyframes = document.querySelector('#input-keyframes-textinput');
-    elementKeyframes.addEventListener('input', (e) => ChangeContenteditableHighlight(null, '#input-keyframes-textinput', '#input-keyframes-textoutput'));
+    elementKeyframes.addEventListener('input', (e) => ChangeContenteditableHighlight('#input-keyframes-textinput', '#input-keyframes-textoutput', null, 'css'));
   }
 
   function SettingsChangeEvent() {
-    let animationSettings = document.querySelector('#animation-settings-input');
-    animationSettings.addEventListener('input', (e) => ChangeContenteditableHighlight(null, '#animation-settings-input', '#animation-settings-textoutput'));
-  
+    let animationSettings = document.querySelector('#animation-style-input');
+    animationSettings.addEventListener('input', (e) => ChangeContenteditableHighlight('#animation-style-input', '#animation-style-textoutput', null, 'css'));
+  }
+
+  function ScriptChangeEvent() {
+    let elementSettingsInput = document.querySelector('#script-input');
+    elementSettingsInput.addEventListener('input', (e) => ChangeContenteditableHighlight('#script-input', '#script-textoutput', null, 'javascript'));
+  }
+
+  function HandleStartEvent() {
+    let startBtn = document.querySelector('#btn-start');
+    startBtn.addEventListener('click', (e) => {
+      let x = document.querySelector('#script-input').innerHTML;
+      eval(x);
+    });
   }
 
   function ContentEditableNoDivHackEvent() {
@@ -137,64 +157,65 @@
     */
 
       document.addEventListener('keydown', event => {
-      if (event.key === 'Enter' && event.target.id === "input-keyframes-textinput") {
-        console.log("blocked");
-        document.execCommand('insertLineBreak')
-        event.preventDefault()
-      }
+        if (event.key === 'Enter' && event.target.id === "input-keyframes-textinput") {
+          console.log("blocked");
+          document.execCommand('insertLineBreak')
+          event.preventDefault()
+        }
+      });
+
+  }
+
+  function HandlePresets() {
+    $('#preset-breathing').first().on('click', () => {
+      SetHtmlValues(templates[0]);
     });
-
+    $('#preset-diagonal-stripes').first().on('click', () => {
+      SetHtmlValues(templates[1]);
+    });
   }
 
-  function GetDefaultKeyframesValue() {
+
+  function GetDefaultScript() {
     let text = `
-@keyframes myAnimation {
-0%, 100% {
-  font-variation-settings: 'wght' 100;
-  font-size: 100px;
-  color: #0000FF;
+function PutTextIntoRender() {
+  let elementInputText = document.querySelector("#input-text-textarea");
+  let rows = elementInputText.innerHTML.split('<br>');
+  let outputAreaText = rows.map(row => '<div class="adjustableHeight">' + row + '</div>').join('');
+  let outputArea = document.querySelector("#input-to-output-text-render");
+  outputArea.innerHTML = '<div data-splitting>' + outputAreaText + '</div>';
 }
 
-60% {
-  font-variation-settings: 'wght' 700;
-  font-size: 200px;
-  color: #FF0000;
+function Start() {
+  PutTextIntoRender();
+  /* Your custom function here, you can remove the line below */
+  Splitting(); /* from splitting.js */
 }
-`.replace(/\r?\n/, "");  // forward slash starts and ends regex expression
-    return text;
-  }
 
-  function GetDefaultSettings() {
-    let text = `
-:root {
-  --row-height: 200px;
-  --animation-duration: 4000ms;
-  --bg-color: #ffffff;
-  --animation-delay: 0ms;  /* Experimental */
-}
-`.replace(/\r?\n/, "");  // forward slash starts and ends regex expression
-    return text;
+Start();
+  `.replace(/\r?\n/, "");  // forward slash starts and ends regex expression
+      return text;
   }
 
 
-  function SetHtmlValues() {
+  function SetHtmlValues(template) {
     // Set values annoying to set using html to html elements
     // Newline can be set in html using &#10; (the linefeed character literal), but using \n or string templates is more elegant
     let elementInputText = document.querySelector("#input-text-textarea");
     elementInputText.innerHTML = 'regular<br>oxygen<br>ltLY';
     let elementKeyframes = document.querySelector('#input-keyframes-textinput');
-    elementKeyframes.innerHTML = GetDefaultKeyframesValue();
+    elementKeyframes.innerHTML = template.getKeyframes();
     let elementKeyframesHighlighting = document.querySelector('#input-keyframes-textoutput');
     elementKeyframesHighlighting.innerHTML = hljs.highlight(elementKeyframes.innerHTML, {language: 'css'}).value;
-    let elementSettingsInput = document.querySelector('#animation-settings-input');
-    elementSettingsInput.innerHTML = GetDefaultSettings();
-    let elementSettingsHighlighting = document.querySelector('#animation-settings-textoutput');
+    let elementSettingsInput = document.querySelector('#animation-style-input');
+    elementSettingsInput.innerHTML = template.getSettings();
+    let elementSettingsHighlighting = document.querySelector('#animation-style-textoutput');
     elementSettingsHighlighting.innerHTML = hljs.highlight(elementSettingsInput.innerHTML, {language: 'css'}).value;
-  }
-
-  function SetCssValues() {
-    ChangeContenteditableHighlight(GetDefaultKeyframesValue(), '#input-keyframes-textinput', '#input-keyframes-textoutput');
-    
+    let elementScript = document.querySelector('#script-input');
+    elementScript.innerHTML = template.getScript();
+    let elementScriptHighighting = document.querySelector('#script-textoutput');
+    elementScriptHighighting.innerHTML = hljs.highlight(elementScript.innerHTML, {language: 'javascript'}).value;
+    eval(template.getScript());
   }
 
 
@@ -209,22 +230,14 @@
     outputArea.innerHTML = `<div data-splitting>${outputAreaBuilder}<\div>`;
   }
 
-  function HandleStartEvent() {
-    let runBtn = document.querySelector("#btn-start");
-    runBtn.addEventListener('click', (e) => {
-      PutTextIntoRender()
-      Splitting();
-    })
-  }
-
-  function ChangeContenteditableHighlight(text, inputSelector, outputSelector) {
+  function ChangeContenteditableHighlight(inputSelector, outputSelector, text = null, language) {
     if (text === null) {
       let animationSettings = document.querySelector(inputSelector);
-      text = animationSettings.innerHTML.replaceAll("<br>", "\n");
+      text = animationSettings.innerText;
     }
 
     let animationSettingsHighLight = document.querySelector(outputSelector);
-    animationSettingsHighLight.innerHTML = hljs.highlight(text, {language: 'css'}).value;
+    animationSettingsHighLight.innerHTML = hljs.highlight(text, {language: language}).value;
   } 
 
   function HandleAnimationStateEvent() {
@@ -260,7 +273,7 @@
   }
 
   function SetFont(fontFile) {
-    let newFontName = 'UploadedFont';
+    let newFontName = 'ActiveFont';
     let font = new FontFace(newFontName, `url(${fontFile})`);
     font.load().then(function(loaded_face) {
       document.fonts.add(loaded_face);

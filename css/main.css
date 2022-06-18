@@ -1,15 +1,3 @@
-:root {
-  
-  /* These values are overwritten in page html
-  --row-height: 200px; 
-  --animation-duration: 4000ms;
-  --bg-color: #ffffff;
-  --animation-delay: 0ms;
-  */
-  --font-uploaded: "Kapsas", "IBM Plex Sans";
-  --animation-play-state: 'running';
-}
-
 .directChildrenInheritMarginTop > * {
   margin-top: inherit;
 }
@@ -75,7 +63,6 @@
   justify-content: center;
   color: #fff;
   border: none;
-  padding: 12px 18px;
   cursor: pointer;
   outline: none;
   user-select: none;
@@ -91,10 +78,4 @@ body {
   background-color: var(--bg-color);
   height: 100vh;
   margin: 0;
-}
-
-.char {  /* This class name is added by splitting.js */
-  animation: myAnimation var(--animation-duration) infinite both; /* breathe is defined in js */
-  animation-delay: calc((var(--char-index) + 1) * var(--animation-delay));
-  animation-play-state: var(--animation-play-state);
 }
