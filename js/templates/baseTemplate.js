@@ -4,10 +4,7 @@ export default class BaseTemplate {
     --animation-duration: 4000ms;
     --bg-color: #ffffff;
     --animation-delay: 0ms;  /* Experimental */
-    --font-uploaded: "Kapsas", "IBM Plex Sans";
-    --animation-play-state: 'running';
-} 
-`;
+} `;
         return text;
     }
 
@@ -16,11 +13,11 @@ export default class BaseTemplate {
             useSplitting ? 'data-splitting' : '', 
             useSplitting ? 'Splitting() /* from splitting.js */' : '', 
     ]
-        let text = `
-function PutTextIntoRender() {
+        let text = "" +
+`function PutTextIntoRender() {
   let elementInputText = document.querySelector("#input-text-textarea");
   let rows = elementInputText.innerHTML.split('<br>');
-  let outputAreaText = rows.map(row => '<div>' + row + '</div>').join('');
+  let outputAreaText = rows.map(row => '<div class="notbs-row">' + row + '</div>').join('');
   let outputArea = document.querySelector("#input-to-output-text-render");
   outputArea.innerHTML = '<div ${model[0]}>' + outputAreaText + '</div>';
 }

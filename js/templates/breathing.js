@@ -2,8 +2,13 @@ import BaseTemplate from "./baseTemplate.js";
 
 export default class Breathing {
     GetStyle() {
-        let text = `${new BaseTemplate().GetStyle()}
+        let text = '' + 
+`${new BaseTemplate().GetStyle()}
         
+.notbs-row {
+    height: 300px;
+}
+
 .char {  /* This class name is added by splitting.js */
   animation: breathing var(--animation-duration) infinite both; /* breathe is defined in js */
   animation-delay: calc((var(--char-index) + 1) * var(--animation-delay));
@@ -14,7 +19,7 @@ export default class Breathing {
 
     GetKeyframes() {
         let text = `@keyframes breathing {
-    0%, 100% {
+0%, 100% {
     font-variation-settings: 'wght' 100;
     font-size: 100px;
     color: #0000FF;
@@ -24,9 +29,7 @@ export default class Breathing {
     font-variation-settings: 'wght' 700;
     font-size: 200px;
     color: #FF0000;
-}
-}
-    `;
+}`;
         return text;
       }
 

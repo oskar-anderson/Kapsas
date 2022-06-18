@@ -30,6 +30,7 @@
   color: transparent; 
   z-index: 1;
   caret-color: black;
+  width: 100%;
 }
 
 .css-contenteditable-wrapper {
@@ -49,8 +50,8 @@
   src: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/85648/IBMPlexSansVar-Roman.ttf");
 }
 
-.font-uploaded {
-  font-family: var(--font-uploaded);
+.main-font {
+  font-family: "ClientAwesomeUploadedFont", "Kapsas", "IBM Plex Sans";
 }
 
 /* button class is currently unused */
