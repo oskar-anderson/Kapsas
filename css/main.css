@@ -2,10 +2,6 @@
   margin-top: inherit;
 }
 
-.adjustableHeight {
-  height: var(--row-height);
-}
-
 .center {
   display: flex;
   justify-content: center;

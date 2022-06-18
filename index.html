@@ -105,8 +105,8 @@
   import Breating from './js/templates/breathing.js'
   import DiagonalStripes from './js/templates/diagonalStripes.js'
 
-  let breathingTemplate = new Template(new Breating().GetStyle, new Breating().GetKeyframes, GetDefaultScript);
-  let diagonalStripesTemplate = new Template(new DiagonalStripes().GetStyle, new DiagonalStripes().GetKeyframes, GetDefaultScript);
+  let breathingTemplate = new Template(new Breating().GetStyle, new Breating().GetKeyframes, new Breating().GetScript);
+  let diagonalStripesTemplate = new Template(new DiagonalStripes().GetStyle, new DiagonalStripes().GetKeyframes, new DiagonalStripes().GetScript);
   let templates = [breathingTemplate, diagonalStripesTemplate];
 
   main();
@@ -145,7 +145,7 @@
   function HandleStartEvent() {
     let startBtn = document.querySelector('#btn-start');
     startBtn.addEventListener('click', (e) => {
-      let x = document.querySelector('#script-input').innerHTML;
+      let x = document.querySelector('#script-input').innerText;
       eval(x);
     });
   }
@@ -176,28 +176,6 @@
   }
 
 
-  function GetDefaultScript() {
-    let text = `
-function PutTextIntoRender() {
-  let elementInputText = document.querySelector("#input-text-textarea");
-  let rows = elementInputText.innerHTML.split('<br>');
-  let outputAreaText = rows.map(row => '<div class="adjustableHeight">' + row + '</div>').join('');
-  let outputArea = document.querySelector("#input-to-output-text-render");
-  outputArea.innerHTML = '<div data-splitting>' + outputAreaText + '</div>';
-}
-
-function Start() {
-  PutTextIntoRender();
-  /* Your custom function here, you can remove the line below */
-  Splitting(); /* from splitting.js */
-}
-
-Start();
-  `.replace(/\r?\n/, "");  // forward slash starts and ends regex expression
-      return text;
-  }
-
-
   function SetHtmlValues(template) {
     // Set values annoying to set using html to html elements
     // Newline can be set in html using &#10; (the linefeed character literal), but using \n or string templates is more elegant
@@ -216,18 +194,6 @@ Start();
     let elementScriptHighighting = document.querySelector('#script-textoutput');
     elementScriptHighighting.innerHTML = hljs.highlight(elementScript.innerHTML, {language: 'javascript'}).value;
     eval(template.getScript());
-  }
-
-
-  function PutTextIntoRender() {
-    let elementInputText = document.querySelector("#input-text-textarea");
-    let rows = elementInputText.innerHTML.split(/<br>/);
-    let outputAreaBuilder = "";
-    rows.forEach(row => {
-      outputAreaBuilder += `<div class="adjustableHeight">${row}</div>`;
-    });
-    let outputArea = document.querySelector("#input-to-output-text-render");
-    outputArea.innerHTML = `<div data-splitting>${outputAreaBuilder}<\div>`;
   }
 
   function ChangeContenteditableHighlight(inputSelector, outputSelector, text = null, language) {

@@ -6,6 +6,7 @@ export default class DiagonalStripes {
     let text = `${new BaseTemplate().GetStyle()}
     
 #input-to-output-text-render {
+  font-size: 20vw;
   background: linear-gradient(
     -45deg, 
     #4bc0c8 25%, 
@@ -39,5 +40,7 @@ export default class DiagonalStripes {
     return text;
   }
 
-
+  GetScript() {
+    return new BaseTemplate().GetScript(false);
+  }
 }

@@ -29,4 +29,8 @@ export default class Breathing {
     `;
         return text;
       }
+
+    GetScript() {
+        return new BaseTemplate().GetScript(true);
+    }
 }
