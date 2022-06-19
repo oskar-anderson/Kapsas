@@ -8,8 +8,6 @@
   <script src="./js/splitting.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   <meta charset="utf-8"  />
   <title>Kapsas</title>
 </head>
@@ -17,28 +15,27 @@
   <div>
     <!-- Setting autocomplete off on input tags makes the values reset on soft refresh in FF --> 
     <div autocomplete="off" class="directChildrenInheritMarginTop" style="padding: 8px; background-color: #f5f5d4; text-align: center;">
-      <div class="directChildrenInheritMarginTop collapsable-el-settings" style="margin-top: 4px;">
+      <div class="directChildrenInheritMarginTop" style="margin-top: 4px;">
         
         <div>
           <p style="margin: 0 0 0 0;">Presets</p>
           <button id="preset-breathing" class="button" style="padding: .75rem 1.25rem;">Breathing</button>
           <button id="preset-diagonal-stripes" class="button" style="padding: .75rem 1.25rem;">Diagonal stripes</button>
         </div>
-
+        
         <p style="margin: 1em 0 0 0;">Settings</p>
-        <div class="collapsable-el-settings">
-          <button class="button" style="padding: .75rem 1.25rem; width: 100%" data-toggle="collapse" data-target="#collapseOne">
+        <details>
+          <summary class="button" style="padding: .75rem 1.25rem; width: 100%">
             Style
-          </button>
-          <div id="collapseOne" class="css-contenteditable-wrapper collapse" style="text-align: left;">
+          </summary>
+          <div class="css-contenteditable-wrapper" style="text-align: left;">
             <style id="animation-style-input" contenteditable="" spellcheck="false" class="input-textinput" style="display: block;"></style>
             <pre id="animation-style-textoutput" class="input-textoutput" aria-hidden="true"></pre>
           </div>
-        </div>
-
+        </details>
         
-        <div class="collapsable-el-settings">
-          <button class="button" style="padding: .75rem 1.25rem; width: 100%" data-toggle="collapse" data-target="#collapseThree">
+        <details>
+          <summary class="button" style="padding: .75rem 1.25rem; width: 100%">
             <span>Keyframes
               <span>
                 <a title="Animatable CSS properties" tabindex="-1" target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_animated_properties">
@@ -46,33 +43,33 @@
                 </a>
               </span>
             </span>
-          </button>
-          <div id="collapseThree" class="css-contenteditable-wrapper collapse">
+          </summary>
+          <div class="css-contenteditable-wrapper">
             <style contenteditable spellcheck="false" class="input-textinput" id="input-keyframes-textinput" style="display: block;"></style>
             <pre id="input-keyframes-textoutput" class="input-textoutput" aria-hidden="true"></pre>
           </div>
-        </div>
+        </details>
 
 
-        <div class="collapsable-el-settings">
-          <button class="button" style="padding: .75rem 1.25rem; width: 100%" data-toggle="collapse" data-target="#collapseTwo">
+        <details>
+          <summary class="button" style="padding: .75rem 1.25rem; width: 100%">
             Text
-          </button>
-          <div id="collapseTwo" class="css-contenteditable-wrapper collapse">
+          </summary>
+          <div class="css-contenteditable-wrapper">
             <div id="input-text-textarea" contenteditable spellcheck="false" class="main-font" style="outline: none; font-size: 40px;"></div>
           </div>
-        </div>
+        </details>
 
 
-        <div class="collapsable-el-settings">
-          <button class="button" style="padding: .75rem 1.25rem; width: 100%" data-toggle="collapse" data-target="#collapseFour">
+        <details>
+          <summary class="button" style="padding: .75rem 1.25rem; width: 100%">
             Script
-          </button>
-          <div id="collapseFour" class="css-contenteditable-wrapper collapse" style="text-align: left;">
+          </summary>
+          <div class="css-contenteditable-wrapper" style="text-align: left;">
             <style id="script-input" contenteditable="" spellcheck="false" class="input-textinput" style="display: block;"></style>
             <pre id="script-textoutput" class="input-textoutput" aria-hidden="true"></pre>
           </div>
-        </div>
+        </details>
         
 
         <p style="margin: 1em 0 0 0;">Actions</p>
