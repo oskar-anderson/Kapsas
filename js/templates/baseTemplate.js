@@ -17,7 +17,7 @@ export default class BaseTemplate {
 `function PutTextIntoRender() {
   let elementInputText = document.querySelector("#input-text-textarea");
   let rows = elementInputText.innerHTML.split('<br>');
-  let outputAreaText = rows.map(row => '<div class="notbs-row">' + row + '</div>').join('');
+  let outputAreaText = rows.map((row, i) => '<div class="notbs-row" data-row="' + (i + 1) + '">' + row + '</div>').join('');
   let outputArea = document.querySelector("#input-to-output-text-render");
   outputArea.innerHTML = '<div ${model[0]}>' + outputAreaText + '</div>';
 }

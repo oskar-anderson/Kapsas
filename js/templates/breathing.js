@@ -37,4 +37,8 @@ export default class Breathing {
     GetScript() {
         return new BaseTemplate().GetScript(true);
     }
+
+    GetText() {
+        return ['regular', 'oxygen', 'kerning-ltLY'];
+    }
 }

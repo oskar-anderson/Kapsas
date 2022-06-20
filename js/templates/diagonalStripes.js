@@ -43,4 +43,8 @@ export default class DiagonalStripes {
   GetScript() {
     return new BaseTemplate().GetScript(false);
   }
+  
+  GetText() {
+    return ['regular', 'oxygen', 'kerning-ltLY'];
+}
 }

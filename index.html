@@ -20,6 +20,7 @@
           <p style="margin: 0 0 0 0;">Presets</p>
           <button id="preset-breathing" class="button" style="padding: .75rem 1.25rem;">Breathing</button>
           <button id="preset-diagonal-stripes" class="button" style="padding: .75rem 1.25rem;">Diagonal stripes</button>
+          <button id="preset-multi-expand-opacity" class="button" style="padding: .75rem 1.25rem;">Multi expand opacity</button>
         </div>
         
         <p style="margin: 1em 0 0 0;">Settings</p>
@@ -99,12 +100,29 @@
 
   import hljs from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/es/highlight.min.js';
   import Template from './js/template.js';
-  import Breating from './js/templates/breathing.js'
-  import DiagonalStripes from './js/templates/diagonalStripes.js'
+  import Breating from './js/templates/breathing.js';
+  import DiagonalStripes from './js/templates/diagonalStripes.js';
+  import MultiExpandOpacity from './js/templates/multiExpandOpacity.js';
 
-  let breathingTemplate = new Template(new Breating().GetStyle, new Breating().GetKeyframes, new Breating().GetScript);
-  let diagonalStripesTemplate = new Template(new DiagonalStripes().GetStyle, new DiagonalStripes().GetKeyframes, new DiagonalStripes().GetScript);
-  let templates = [breathingTemplate, diagonalStripesTemplate];
+  let breathingTemplate = new Template(
+    new Breating().GetStyle, 
+    new Breating().GetKeyframes, 
+    new Breating().GetScript,
+    new Breating().GetText()
+  );
+  let diagonalStripesTemplate = new Template(
+    new DiagonalStripes().GetStyle, 
+    new DiagonalStripes().GetKeyframes, 
+    new DiagonalStripes().GetScript,
+    new DiagonalStripes().GetText()
+  );
+  let multiExpandOpacityTemplate = new Template(
+    new MultiExpandOpacity().GetStyle, 
+    new MultiExpandOpacity().GetKeyframes, 
+    new MultiExpandOpacity().GetScript,
+    new MultiExpandOpacity().GetText()
+  );
+  let templates = [breathingTemplate, diagonalStripesTemplate, multiExpandOpacityTemplate];
 
   main();
 
@@ -170,6 +188,9 @@
     $('#preset-diagonal-stripes').first().on('click', () => {
       SetHtmlValues(templates[1]);
     });
+    $('#preset-multi-expand-opacity').first().on('click', () => {
+      SetHtmlValues(templates[2]);
+    });
   }
 
 
@@ -177,7 +198,7 @@
     // Set values annoying to set using html to html elements
     // Newline can be set in html using &#10; (the linefeed character literal), but using \n or string templates is more elegant
     let elementInputText = document.querySelector("#input-text-textarea");
-    elementInputText.innerHTML = 'regular<br>oxygen<br>kerning-ltLY';
+    elementInputText.innerHTML = template.textArr.join('<br>');
     let elementKeyframes = document.querySelector('#input-keyframes-textinput');
     elementKeyframes.innerHTML = template.getKeyframes();
     let elementKeyframesHighlighting = document.querySelector('#input-keyframes-textoutput');
