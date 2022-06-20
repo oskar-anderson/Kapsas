@@ -2,13 +2,12 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="./css/main.css" rel="stylesheet" >
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/default.min.css">
   <link rel="stylesheet" href="./css/splitting.css" />
-  <script src="./js/splitting.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <meta charset="utf-8"  />
+  <script src="./js/splitting.js"></script>
+  <link href="./css/main.css" rel="stylesheet" >
   <title>Kapsas</title>
 </head>
 <body>
@@ -178,7 +177,7 @@
     // Set values annoying to set using html to html elements
     // Newline can be set in html using &#10; (the linefeed character literal), but using \n or string templates is more elegant
     let elementInputText = document.querySelector("#input-text-textarea");
-    elementInputText.innerHTML = 'regular<br>oxygen<br>ltLY';
+    elementInputText.innerHTML = 'regular<br>oxygen<br>kerning-ltLY';
     let elementKeyframes = document.querySelector('#input-keyframes-textinput');
     elementKeyframes.innerHTML = template.getKeyframes();
     let elementKeyframesHighlighting = document.querySelector('#input-keyframes-textoutput');

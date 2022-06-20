@@ -2,7 +2,7 @@ export default class BaseTemplate {
     GetStyle() {
         let text = `:root {
     --animation-duration: 4000ms;
-    --bg-color: #ffffff;
+    --bg-color: #2b2532;
     --animation-delay: 0ms;  /* Experimental */
 } `;
         return text;

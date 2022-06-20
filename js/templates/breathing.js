@@ -6,7 +6,8 @@ export default class Breathing {
 `${new BaseTemplate().GetStyle()}
         
 .notbs-row {
-    height: 300px;
+    font-size: 200px; /* This has to match max fontsize from animation, otherwise letters start moving vertically affecting the rows */
+    margin-bottom: -100px; /* This sets the height between 2 rows without causing overflow from parent div like with height attribute */
 }
 
 .char {  /* This class name is added by splitting.js */
@@ -22,13 +23,13 @@ export default class Breathing {
 0%, 100% {
     font-variation-settings: 'wght' 100;
     font-size: 100px;
-    color: #0000FF;
+    color: #f6ddcc;
 }
 
 60% {
     font-variation-settings: 'wght' 700;
     font-size: 200px;
-    color: #FF0000;
+    color: #eb515d;
 }`;
         return text;
       }
